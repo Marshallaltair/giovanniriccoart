@@ -1,0 +1,91 @@
+.ud-gallery {
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #050505;
+  color: var(--paper);
+}
+
+.ud-gallery__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--gutter);
+  border-bottom: 1px solid rgba(237, 233, 225, 0.14);
+}
+
+.ud-gallery__back,
+.ud-gallery__close {
+  min-height: 2.5rem;
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ud-gallery__back span {
+  display: inline-block;
+  margin-right: 0.45rem;
+  color: var(--pencil);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.ud-gallery__back:hover span { transform: translateX(-0.25rem); }
+.ud-gallery__count { color: var(--silver); font-size: var(--step--1); }
+.ud-gallery__close { opacity: 0.75; }
+.ud-gallery__close:hover { opacity: 1; }
+
+.ud-gallery__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: clamp(2rem, 5vw, 5rem) var(--gutter);
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--graphite) transparent;
+}
+
+.ud-gallery__item {
+  flex: 0 0 auto;
+  width: clamp(220px, 23vw, 390px);
+  max-height: 76vh;
+  padding: 0;
+  scroll-snap-align: center;
+  cursor: zoom-in;
+  transform: scale(1);
+  transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
+}
+
+.ud-gallery__item img {
+  width: 100%;
+  height: auto;
+  max-height: 76vh;
+  object-fit: contain;
+  user-select: none;
+  filter: drop-shadow(0 1.5rem 2rem rgba(0, 0, 0, 0.45));
+}
+
+.ud-gallery__item:hover { transform: translateY(-0.5rem); }
+.ud-gallery__item.is-zoomed { transform: scale(1.16); cursor: zoom-out; z-index: 2; }
+.ud-gallery__item.is-zoomed ~ .ud-gallery__item { opacity: 0.45; }
+
+.ud-gallery__hint {
+  padding: 0 var(--gutter) var(--gutter);
+  color: var(--silver);
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+@media (max-width: 899px) {
+  .ud-gallery__track { gap: 0.9rem; padding-block: 1.5rem; }
+  .ud-gallery__item { width: min(72vw, 310px); }
+  .ud-gallery__item.is-zoomed { transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ud-gallery__item { transition: none; }
+}

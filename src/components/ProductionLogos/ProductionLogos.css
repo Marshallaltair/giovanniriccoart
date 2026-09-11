@@ -1,0 +1,71 @@
+.production-logos {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 6vw, 6rem) 0;
+  background: var(--ink);
+  border-top: 1px solid var(--graphite);
+  border-bottom: 1px solid var(--graphite);
+}
+
+.production-logos__label {
+  padding: 0 var(--gutter);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--silver);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.production-logos__viewport { overflow: hidden; }
+
+.production-logos__track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: production-logos-marquee 34s linear infinite;
+  will-change: transform;
+}
+
+.production-logos__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(9rem, 15vw, 15rem);
+  margin-right: clamp(2.5rem, 5vw, 6rem);
+  white-space: nowrap;
+  color: #f1f1ed;
+  opacity: 0.82;
+  font-family: var(--font-display);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.production-logos__item:hover { opacity: 1; }
+.logo--netflix { font-size: clamp(1.8rem, 3vw, 3.2rem); font-weight: 800; letter-spacing: -0.08em; }
+.logo--prime { font-family: var(--font-body); font-size: clamp(1.5rem, 2.4vw, 2.5rem); font-weight: 700; }
+.logo--rai { font-size: clamp(2rem, 3.8vw, 4rem); font-weight: 900; letter-spacing: -0.1em; }
+.logo--sky { font-size: clamp(2rem, 4vw, 4.2rem); font-weight: 900; }
+.logo--fox { font-size: clamp(1.8rem, 3.3vw, 3.5rem); font-weight: 900; }
+.logo--disney { font-family: cursive; font-size: clamp(1.6rem, 2.8vw, 3rem); font-weight: 700; }
+.logo--warner { font-size: clamp(1.1rem, 1.8vw, 1.8rem); font-weight: 800; letter-spacing: 0.04em; }
+.logo--blackstone { font-size: clamp(0.9rem, 1.5vw, 1.5rem); font-weight: 800; letter-spacing: 0.04em; }
+.logo--augustus { font-size: clamp(0.9rem, 1.5vw, 1.5rem); font-weight: 700; letter-spacing: 0.08em; }
+.logo--dejavu { font-size: clamp(0.85rem, 1.4vw, 1.4rem); font-weight: 700; letter-spacing: 0.05em; }
+.logo--fxlab { font-size: clamp(1.3rem, 2.2vw, 2.3rem); font-weight: 800; }
+.logo--metaphyx { font-size: clamp(1.1rem, 1.8vw, 1.8rem); font-weight: 700; letter-spacing: 0.12em; }
+.logo--alterego { font-size: clamp(1rem, 1.7vw, 1.7rem); font-weight: 800; letter-spacing: 0.08em; }
+
+@keyframes production-logos-marquee {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@media (max-width: 680px) {
+  .production-logos__track { animation-duration: 28s; }
+  .production-logos__item { min-width: 8rem; margin-right: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .production-logos__track { animation: none; transform: translate3d(-25%, 0, 0); }
+}

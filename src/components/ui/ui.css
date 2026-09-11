@@ -1,0 +1,142 @@
+/* Media */
+.media {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plate-placeholder__marker {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  opacity: 0.35;
+}
+
+.plate-placeholder__marker::before,
+.plate-placeholder__marker::after {
+  content: '';
+  position: absolute;
+  background: var(--silver);
+}
+
+.plate-placeholder__marker::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.plate-placeholder__marker::after {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+/* ImageReveal */
+.image-reveal {
+  position: relative;
+  overflow: hidden;
+  background: var(--plate);
+}
+
+.image-reveal__inner {
+  position: absolute;
+  inset: 0;
+}
+
+/* SectionTransition: sale sopra il capitolo precedente */
+.section-transition {
+  position: relative;
+  z-index: 2;
+  margin-top: -100svh;
+  background: var(--ink);
+}
+
+/* ParallaxSection — stessa grammatica di profondità dell'Hero */
+.parallax {
+  position: relative;
+  height: 240svh;
+  min-height: 48rem;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.parallax__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1600px;
+  perspective-origin: 50% 42%;
+}
+
+.parallax__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.parallax__media {
+  position: absolute;
+  inset: -12% 0;
+  z-index: -2;
+  transform: translateZ(-220px) scale(1.08);
+  transform-style: preserve-3d;
+}
+
+.parallax__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 60%),
+    rgba(0, 0, 0, var(--overlay));
+}
+
+.parallax__content {
+  position: relative;
+  z-index: 1;
+  padding: var(--gutter);
+  padding-bottom: calc(var(--gutter) * 2);
+  align-self: end;
+  transform: translateZ(180px);
+  transform-style: preserve-3d;
+}
+
+.parallax[data-text-position='center'] .parallax__content {
+  align-self: center;
+}
+
+.parallax[data-align='center'] .parallax__content {
+  text-align: center;
+}
+
+.parallax[data-align='right'] .parallax__content {
+  text-align: right;
+}
+
+.parallax__title {
+  font-size: clamp(5rem, 24vw, 28rem);
+  line-height: 0.8;
+}
+
+.parallax__subtitle {
+  margin-top: 1.2rem;
+  font-size: var(--step-1);
+  color: var(--silver);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-transition {
+    margin-top: 0;
+  }
+}

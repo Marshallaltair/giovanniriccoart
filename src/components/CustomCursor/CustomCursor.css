@@ -1,0 +1,60 @@
+html.has-cursor,
+html.has-cursor * { cursor: none !important; }
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 180;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor__dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--pencil);
+  box-shadow: 0 0 0 1px rgba(164, 221, 237, 0.35);
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.cursor__label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--pencil);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.cursor[data-state='hidden'] .cursor__dot { opacity: 0; }
+
+/* Stato chiaramente distinguibile: qui l'elemento è cliccabile. */
+.cursor[data-state='link'] .cursor__dot {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  background: var(--pencil);
+  box-shadow: 0 0 0 1px var(--pencil), 0 0 18px rgba(164, 221, 237, 0.25);
+  mix-blend-mode: difference;
+}
+
+.cursor[data-state='label'] .cursor__dot {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  background: transparent;
+  border: 1px solid var(--pencil);
+  box-shadow: none;
+}
+
+.cursor[data-state='label'] .cursor__label { opacity: 1; transform: none; }
+.cursor.is-pressed .cursor__dot { transform: scale(0.72); }

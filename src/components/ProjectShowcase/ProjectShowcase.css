@@ -1,0 +1,205 @@
+.work {
+  position: relative;
+  z-index: 1;
+  background: var(--ink);
+}
+
+.work__intro {
+  display: grid;
+  gap: 2rem;
+  padding: var(--section-pad) var(--gutter) calc(var(--section-pad) * 0.5);
+}
+
+.work__lede {
+  max-width: 24ch;
+  font-size: var(--step-1);
+  line-height: 1.3;
+  color: var(--silver);
+}
+
+/* Selected Work usa la stessa inquadratura piena del plate della Home. */
+#work-title .parallax__media {
+  inset: 0;
+}
+
+#work-title .parallax__overlay {
+  background:
+    radial-gradient(130% 100% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.7) 100%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 40%),
+    rgba(0, 0, 0, var(--overlay));
+}
+
+@media (min-width: 900px) {
+  .work__intro {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+/* FullscreenProject */
+.fsp {
+  position: relative;
+  height: 250svh;
+}
+
+.fsp + .fsp {
+  margin-top: -100svh;
+}
+
+.fsp__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1600px;
+  perspective-origin: 50% 42%;
+  background: var(--ink);
+}
+
+.fsp__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.fsp__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: clip-path, transform;
+}
+
+.fsp__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent 55%);
+  pointer-events: none;
+}
+
+.fsp__media {
+  position: absolute;
+  inset: -9% 0;
+}
+
+.fsp__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #000;
+  opacity: 0;
+}
+
+.fsp__index {
+  position: absolute;
+  top: calc(var(--gutter) + 3rem);
+  right: var(--gutter);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  color: var(--paper);
+}
+
+.fsp__content {
+  position: absolute;
+  inset: auto var(--gutter) calc(var(--gutter) * 2.2);
+  display: grid;
+  gap: 1.5rem;
+}
+
+.fsp__title {
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 1rem + 9vw, 12rem);
+  line-height: 0.84;
+  text-transform: uppercase;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+
+.fsp__title > span {
+  display: block;
+}
+
+.project-card {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 26rem;
+}
+
+.project-card__meta {
+  display: flex;
+  gap: 1.2rem;
+  font-size: var(--step--1);
+  color: var(--silver);
+  font-variant-numeric: tabular-nums;
+}
+
+.project-card__desc {
+  font-size: var(--step-0);
+  line-height: 1.45;
+}
+
+.project-card__link {
+  justify-self: start;
+  font-size: var(--step--1);
+}
+
+@media (min-width: 900px) {
+  .fsp__content {
+    grid-template-columns: 1fr minmax(16rem, 26rem);
+    align-items: end;
+    gap: 3rem;
+    bottom: calc(var(--gutter) * 1.5);
+    right: calc(var(--gutter) * 4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fsp {
+    height: 100svh;
+  }
+
+  .fsp + .fsp {
+    margin-top: 0;
+  }
+
+  .fsp__sticky {
+    position: relative;
+  }
+}
+
+
+/* Interactive project chapter */
+.fsp__frame:disabled {
+  cursor: default;
+}
+
+.fsp--gallery .fsp__frame {
+  cursor: pointer;
+}
+
+.fsp__action {
+  justify-self: start;
+  color: var(--paper);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.82;
+}
+
+.fsp__action span {
+  display: inline-block;
+  margin-left: 0.45rem;
+  color: var(--pencil);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.fsp--gallery .fsp__frame:hover + .fsp__index + .fsp__content .fsp__action span {
+  transform: translate(0.2rem, -0.2rem);
+}
+
+@media (max-width: 899px) {
+  .fsp__action { margin-top: -0.5rem; }
+}

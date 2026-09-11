@@ -1,0 +1,57 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 120;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--gutter);
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.nav > * { pointer-events: auto; }
+.nav[data-hidden='true']:not([data-open='true']) { transform: translateY(-120%); }
+.nav[data-open='true'] { mix-blend-mode: normal; }
+.nav__toggle { position: relative; min-width: 3.5rem; padding: 0.5rem 0 0.5rem 1rem; text-align: right; text-transform: uppercase; letter-spacing: 0.06em; }
+.nav__brand, .nav__toggle { padding-block: 0.5rem; }
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: calc(var(--gutter) * 4) var(--gutter) var(--gutter);
+  background: var(--ink);
+  visibility: hidden;
+  clip-path: inset(0% 0% 100% 0%);
+}
+
+.menu__list { align-self: center; }
+.menu__item a {
+  display: block;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, min(6.5vw, 8svh), 5.5rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.menu__item a > span { display: flex; align-items: flex-start; gap: 0.6rem; line-height: 0.86; padding-block: 0.04em; }
+.menu__num { font-family: var(--font-sans); font-weight: 400; font-size: var(--step--1); line-height: 1; margin-top: 0.5rem; color: var(--silver); font-variant-numeric: tabular-nums; }
+.menu__list:hover a { color: var(--graphite); }
+.menu__list:hover a:hover, .menu__list a:focus-visible { color: var(--paper); transform: translateX(0.2rem); }
+.menu__foot { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: var(--step--1); color: var(--silver); }
+
+@media (max-height: 700px) {
+  .menu { padding-top: calc(var(--gutter) * 3); }
+  .menu__item a { font-size: clamp(1.35rem, 5.2vh, 3.8rem); }
+}

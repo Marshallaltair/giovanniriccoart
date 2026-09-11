@@ -1,0 +1,307 @@
+/* ==========================================================================
+   GIOVANNIRICCOART.COM — design tokens e base
+   Concept: ogni inquadratura è costruita a strati (plate, ink, pencil).
+   Colore d'accento: non-photo blue, la matita azzurra usata dai disegnatori
+   di fumetti sotto l'inchiostro. Usato solo per guide, cursore e focus.
+   ========================================================================== */
+
+:root {
+  /* Colore */
+  --ink: #000000;
+  --plate: #1a1b1e;
+  --graphite: #2c2e32;
+  --silver: #8d8f93;
+  --paper: #ede9e1;
+  --pencil: #a4dded;
+
+  /* Tipografia */
+  --font-display: 'Big Shoulders Display Variable', 'Arial Narrow', 'Helvetica Neue Condensed', sans-serif;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+  --step-2: clamp(1.7rem, 1.3rem + 1.8vw, 3rem);
+  --step-3: clamp(2.2rem, 1.4rem + 3.6vw, 5rem);
+  --display-xl: clamp(4.5rem, 1rem + 16vw, 20rem);
+  --display-xxl: clamp(5rem, 26vw, 30rem);
+
+  /* Spazio */
+  --gutter: clamp(1rem, 2.4vw, 2.5rem);
+  --section-pad: clamp(6rem, 14vw, 14rem);
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-wipe: cubic-bezier(0.87, 0, 0.13, 1);
+  --dur-fast: 0.3s;
+  --dur: 0.6s;
+  --dur-cine: 1.2s;
+
+  color-scheme: dark;
+}
+
+/* Reset essenziale */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  font-feature-settings: 'ss01', 'tnum' 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+html.is-loading,
+html.is-locked {
+  overflow: hidden;
+}
+
+img,
+picture,
+svg,
+video,
+iframe {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ol,
+ul,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--pencil);
+  color: var(--ink);
+}
+
+/* Focus visibile ovunque: anello in matita azzurra */
+:focus-visible {
+  outline: 1px solid var(--pencil);
+  outline-offset: 4px;
+}
+
+/* Grana pellicola: statica, economica, sopra tutto */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------------------------
+   Tipografia condivisa
+   -------------------------------------------------------------------------- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  font-variation-settings: 'wght' 800;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--display-xl);
+  line-height: 0.82;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+
+.meta {
+  font-size: var(--step--1);
+  line-height: 1.4;
+  color: var(--silver);
+  font-variant-numeric: tabular-nums;
+}
+
+.prose {
+  max-width: 34em;
+  font-size: var(--step-1);
+  line-height: 1.45;
+  color: var(--paper);
+}
+
+.prose + .prose {
+  margin-top: 1em;
+}
+
+/* Link con sottolineatura che si disegna */
+.link {
+  position: relative;
+  display: inline-block;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.link--static::after {
+  transform: scaleX(1);
+  opacity: 0.35;
+}
+
+.link--static:hover::after {
+  opacity: 1;
+}
+
+/* Maschera per reveal di righe */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+  margin-bottom: -0.04em;
+}
+
+.mask > * {
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--gutter);
+  left: var(--gutter);
+  z-index: 200;
+  padding: 0.7rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--step--1);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Plate placeholder: un'inquadratura vuota con marker di tracking.
+   Sostituisce le immagini non ancora fornite, senza fingere lavori reali.
+   -------------------------------------------------------------------------- */
+
+.plate-placeholder {
+  --tone: var(--plate);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--tone) 100%, white 6%) 0%, var(--tone) 45%, #050505 100%);
+}
+
+.plate-placeholder__markers {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--silver);
+  opacity: 0.35;
+}
+
+.plate-placeholder__hint {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-size: 0.72rem;
+  color: var(--pencil);
+  opacity: 0.8;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion: il contenuto resta completo e statico
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

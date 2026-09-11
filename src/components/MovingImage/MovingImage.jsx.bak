@@ -1,0 +1,55 @@
+import { useRef, useState } from 'react'
+import { RevealText } from '../ui/RevealText.jsx'
+import { ImageReveal } from '../ui/ImageReveal.jsx'
+import { social } from '../../data/social.js'
+import './MovingImage.css'
+
+/**
+ * MOVING IMAGE — facade leggera: l'iframe YouTube (youtube-nocookie)
+ * si carica solo al click. Senza video in evidenza incorpora la playlist
+ * dei caricamenti del canale.
+ */
+export function MovingImage() {
+  const ref = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const yt = social.youtube
+  const videoId = yt.featuredVideoId
+  const uploads = `UU${yt.channelId.slice(2)}`
+  const src = videoId
+    ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`
+    : `https://www.youtube-nocookie.com/embed/videoseries?list=${uploads}&autoplay=1&rel=0&modestbranding=1`
+  const poster = { src: '/images/moving-image.webp', width: 1280, height: 720 }
+
+  return (
+    <section ref={ref} id="watch" className="watch" aria-labelledby="watch-title">
+      <div className="watch__sticky">
+        <div className="watch__stage">
+          <div className="watch__head">
+            <RevealText id="watch-title" className="section-title" lines={['Moving', 'image']} />
+            <a href={yt.url} className="watch__channel link link--static" target="_blank" rel="noopener noreferrer" data-cursor="Open">
+              {yt.handle} on YouTube
+            </a>
+          </div>
+
+          <ImageReveal className="watch__frame" image={poster} alt="Moving image preview" ratio="16 / 9" tone="#141619" hint="images/moving-image.webp">
+            {playing ? (
+              <iframe
+                className="watch__iframe"
+                src={src}
+                title="Giovanni Ricco on YouTube"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            ) : (
+              <button type="button" className="watch__play" data-cursor="Play" onClick={() => setPlaying(true)}>
+                <span className="watch__play-mark" aria-hidden="true" />
+                <span>Play</span>
+                <span className="visually-hidden"> videos from the Giovanni Ricco YouTube channel</span>
+              </button>
+            )}
+          </ImageReveal>
+        </div>
+      </div>
+    </section>
+  )
+}

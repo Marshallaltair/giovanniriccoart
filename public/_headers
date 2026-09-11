@@ -1,0 +1,26 @@
+# Cloudflare Pages — header di sicurezza e cache
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; font-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' https://cloudflareinsights.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+
+# Asset con hash nel nome: cache permanente
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Immagini caricate a mano: cache lunga ma rinnovabile
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/og-image.jpg
+  Cache-Control: public, max-age=604800
+
+# L'HTML va sempre rivalidato, così un nuovo deploy è subito visibile
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate

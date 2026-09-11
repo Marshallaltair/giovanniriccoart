@@ -1,0 +1,18 @@
+.frame-counter {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 60;
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  color: var(--paper);
+  mix-blend-mode: difference;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@media (max-width: 899.98px) {
+  .frame-counter {
+    display: none;
+  }
+}
