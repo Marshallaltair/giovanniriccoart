@@ -20,7 +20,7 @@ export const projects = [
     year: 'Ongoing',
     category: 'Illustration',
     description: 'Comic art, signed artist proofs, illustrations and private commissions for collectors. Enquiries welcome.',
-    image: '/images/work/comics/zatanna.jpg',
+    image: '/images/work/comic.webp',
     alt: 'Comic Arts, Illustrations & Commissions',
     link: social.instagram.url,
     focus: '50% 50%',
