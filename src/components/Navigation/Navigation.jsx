@@ -8,13 +8,9 @@ import './Navigation.css'
 
 const LINKS = [
   { href: '#statement', label: 'Statement' },
-  { href: '#work', label: 'Selected Work' },
   { href: '#artist-proofs', label: 'Comic Arts, Illustrations & Commissions' },
-  { href: '#films', label: 'Selected Credits' },
   { href: '#animations', label: 'Animations' },
-  { href: '#most-viewed', label: 'Most Viewed' },
   { href: '#about', label: 'About' },
-  { href: '#elsewhere', label: 'Elsewhere' },
   { href: '#contact', label: 'Contact' },
 ]
 

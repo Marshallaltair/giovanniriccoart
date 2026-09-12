@@ -1,0 +1,89 @@
+.comics-gallery {
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #050505;
+  color: var(--paper);
+}
+
+.comics-gallery__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--gutter);
+  border-bottom: 1px solid rgba(237, 233, 225, 0.14);
+}
+
+.comics-gallery__back,
+.comics-gallery__close {
+  min-height: 2.5rem;
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.comics-gallery__back span {
+  display: inline-block;
+  margin-right: 0.45rem;
+  color: var(--pencil);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.comics-gallery__back:hover span { transform: translateX(-0.25rem); }
+.comics-gallery__count { color: var(--silver); font-size: var(--step--1); }
+.comics-gallery__close { opacity: 0.75; }
+.comics-gallery__close:hover { opacity: 1; }
+.comics-gallery__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 3rem);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: clamp(2rem, 5vw, 5rem) var(--gutter);
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--graphite) transparent;
+}
+
+.comics-gallery__item {
+  flex: 0 0 auto;
+  width: clamp(300px, 32vw, 560px);
+  max-height: 80vh;
+  padding: 0;
+  scroll-snap-align: center;
+  cursor: zoom-in;
+  transform: scale(1);
+  transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
+}
+
+.comics-gallery__item img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  user-select: none;
+  filter: drop-shadow(0 1.5rem 2rem rgba(0, 0, 0, 0.45));
+}
+
+.comics-gallery__item:hover { transform: translateY(-0.5rem); }
+.comics-gallery__item.is-zoomed { transform: scale(1.35); cursor: zoom-out; z-index: 2; }
+.comics-gallery__item.is-zoomed ~ .comics-gallery__item { opacity: 0.4; }
+.comics-gallery__hint {
+  padding: 0 var(--gutter) var(--gutter);
+  color: var(--silver);
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+@media (max-width: 899px) {
+  .comics-gallery__track { gap: 0.9rem; padding-block: 1.5rem; }
+  .comics-gallery__item { width: min(82vw, 380px); }
+  .comics-gallery__item.is-zoomed { transform: scale(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comics-gallery__item { transition: none; }
+}

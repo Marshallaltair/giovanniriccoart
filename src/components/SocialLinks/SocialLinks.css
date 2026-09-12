@@ -80,7 +80,7 @@
 .elsewhere__name {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3.4rem, 1rem + 10vw, 12rem);
+  font-size: clamp(1.7rem, 0.5rem + 5vw, 6rem);
   line-height: 0.82;
   text-transform: uppercase;
   transition:

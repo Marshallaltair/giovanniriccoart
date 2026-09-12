@@ -1,19 +1,11 @@
 import './ProductionLogos.css'
 
 const logos = [
-  { name: 'NETFLIX', className: 'logo--netflix' },
-  { name: 'Prime Video', className: 'logo--prime' },
-  { name: 'RAI', className: 'logo--rai' },
-  { name: 'SKY', className: 'logo--sky' },
-  { name: 'FOX', className: 'logo--fox' },
-  { name: 'DISNEY+', className: 'logo--disney' },
-  { name: 'WARNER BROS.', className: 'logo--warner' },
-  { name: 'BLACKSTONE STUDIO VFX', className: 'logo--blackstone' },
-  { name: 'AUGUSTUS COLOR', className: 'logo--augustus' },
-  { name: 'ALTEREGO', className: 'logo--alterego' },
-  { name: 'MINISTERO DELL’INTERNO', className: 'logo--ministero' },
-  { name: 'ALPS STUDIO', className: 'logo--alps' },
-  { name: 'MIBAC', className: 'logo--mibac' },
+  { name: 'Netflix', src: '/images/logos/Netflix.png' },
+  { name: 'Mediaset', src: '/images/logos/mediaset.png' },
+  { name: 'Blackstone Studio VFX', src: '/images/logos/blackstone-vfx.png' },
+  { name: 'Augustus Color', src: '/images/logos/augustus-color.png' },
+  { name: 'Alps Studios', src: '/images/logos/alps-studios.png' },
 ]
 
 export function ProductionLogos() {
@@ -25,8 +17,8 @@ export function ProductionLogos() {
       <div className="production-logos__viewport">
         <div className="production-logos__track">
           {repeated.map((logo, index) => (
-            <span key={`${logo.name}-${index}`} className={`production-logos__item ${logo.className}`} aria-hidden={index >= logos.length}>
-              {logo.name}
+            <span key={`${logo.name}-${index}`} className="production-logos__item" aria-hidden={index >= logos.length}>
+              <img src={logo.src} alt={index < logos.length ? logo.name : ''} />
             </span>
           ))}
         </div>

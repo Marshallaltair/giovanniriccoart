@@ -16,7 +16,13 @@ export function SmoothScroll({ children }) {
   useEffect(() => {
     if (reduced) return undefined
 
-    const instance = new Lenis({ lerp: 0.09, wheelMultiplier: 0.95, anchors: false })
+    const instance = new Lenis({
+      lerp: 0.09,
+      wheelMultiplier: 0.95,
+      anchors: false,
+      allowNestedScroll: true,
+      prevent: (node) => Boolean(node.closest?.('.chapter-panel')),
+    })
     const tick = (time) => instance.raf(time * 1000)
 
     instance.on('scroll', ScrollTrigger.update)

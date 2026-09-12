@@ -1,71 +1,74 @@
-export const filmography = [
+﻿export const filmography = [
   {
     id: 'cliffhanger', year: '2026', title: 'Cliffhanger', type: 'Feature film',
     role: 'Visual effects', by: 'Jaume Collet-Serra',
-    image: 'https://m.media-amazon.com/images/M/MV5BNTNlOGUxYjAtMTZhNi00Yjg1LWI0ZGYtY2Q0ZmI4OGQ3ZjAxXkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg', tone: '#15171a',
+    image: '/images/posters/cliffhanger.jpg', tone: '#15171a',
   },
   {
     id: 'pendragon', year: '2026', title: 'The Pendragon Cycle: Rise of the Merlin', type: 'Series',
     role: 'VFX compositor', by: 'Augustus Color',
-    image: 'https://i.ebayimg.com/images/g/TlkAAeSwHjZpIWXd/s-l500.png', tone: '#17131a',
+    image: '/images/posters/pendragon.png', tone: '#17131a',
   },
   {
     id: 'the-ritual-killer', year: '2023', title: 'The Ritual Killer', type: 'Feature film',
     role: 'Digital compositor', by: 'George Gallo',
-    image: 'https://gfx.videobuster.de/archive/v/cI_NkXwvjHim4TEYAYQFmxwcz0lMkawsyUyRqYlMkZpbWGZJTJGanBlZyUyRsiwZcv2zGPLYWQ2ZTBmYWNh9zBl_GH5LmpwZyZyPWimMDA/the-ritual-killer-vod-cover.jpg', tone: '#1b1712',
+    image: '/images/posters/the-ritual-killer.jpg', tone: '#1b1712',
   },
   {
     id: 'suspiria', year: '2018', title: 'Suspiria', type: 'Feature film',
     role: 'Visual effects', by: 'Luca Guadagnino',
-    image: 'https://mr.comingsoon.it/imgdb/locandine/big/54631.jpg', tone: '#1c1011',
+    image: '/images/posters/suspiria.jpg', tone: '#1c1011',
   },
   {
     id: 'diabolik', year: '2021', title: 'Diabolik', type: 'Feature film',
     role: 'Visual effects', by: 'Manetti Bros.',
-    image: 'https://www.impawards.com/intl/italy/2021/posters/diabolik_ver3.jpg', tone: '#101318',
+    image: '/images/posters/diabolik.jpg', tone: '#101318',
   },
   {
-    id: 'ce-ancora-domani', year: '2023', title: "C'è ancora domani", type: 'Feature film',
+    id: 'ce-ancora-domani', year: '2023', title: "C'Ã¨ ancora domani", type: 'Feature film',
     role: 'Digital compositor', by: 'Paola Cortellesi',
-    image: 'https://static.wixstatic.com/media/eb6ecc_3daf9fe2ced64ecf80a559481256051c~mv2.jpg/v1/fill/w_800%2Ch_1000%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01/eb6ecc_3daf9fe2ced64ecf80a559481256051c~mv2.jpg', tone: '#161616',
+    image: '/images/posters/ancora-domani.jpg', tone: '#161616',
   },
   {
     id: 'suburra', year: '2017', title: 'Suburra: la serie', type: 'Series',
     role: 'Visual effects', by: 'Netflix',
-    image: 'https://www.impawards.com/intl/italy/tv/posters/suburra_la_serie_ver2_xxlg.jpg', tone: '#121517',
+    image: '/images/posters/suburra_la_serie.jpg', tone: '#121517',
   },
   {
     id: 'il-commissario-ricciardi', year: '2021', title: 'Il commissario Ricciardi', type: 'Series',
     role: 'Digital compositor', by: 'Rai 1',
-    image: 'https://mojtv.hr/images/2022-11/b2cfb127-766f-4f07-b037-5a3792.jpg', tone: '#15181a',
+    image: '/images/posters/commissario-ricciardi.jpg', tone: '#15181a',
   },
-  {
-    id: 'ultima-sfida', year: '2025', title: "L'ultima sfida", type: 'Feature film',
-    role: 'Visual effects', by: 'Antonio Silvestre',
-    image: 'https://m.media-amazon.com/images/M/MV5BZDI1MWRiMjktOTJhMC00YjAxLWI3ZTEtYTkxMTE5MTE2YTAxXkEyXkFqcGc%40._V1_.jpg', tone: '#171316',
+    {
+    id: 'petra', year: '2020', title: 'Petra', type: 'Series',
+    role: 'Visual effects', by: 'Maria Sole Tognazzi',
+    image: '/images/posters/petra.jpg', tone: '#171316',
   },
   {
     id: 'mektoub-my-love-canto-uno', year: '2017', title: 'Mektoub, My Love: Canto Uno', type: 'Feature film',
     role: 'Compositor', by: 'Abdellatif Kechiche', image: 'https://pad.mymovies.it/filmclub/2017/07/210/imm.jpg', tone: '#17191b',
   },
-  {
-    id: 'tensione-superficiale', year: '2019', title: 'Tensione superficiale', type: 'Feature film',
-    role: 'Digital compositor', by: 'Fx Lab', image: 'https://pad.mymovies.it/filmclub/2021/02/038/imm.jpg', tone: '#151719',
+    {
+    id: 'cortina-express', year: '2024', title: 'Cortina Express', type: 'Feature film',
+    role: 'Digital compositor', by: 'Eros Puglielli',
+    image: '/images/posters/cortina-express.jpg', tone: '#151719',
   },
   {
     id: 'eterno-visionario', year: '2024', title: 'Eterno visionario', type: 'Feature film',
-    role: 'Visual effects', by: 'Michele Placido', image: 'https://pad.mymovies.it/filmclub/2023/09/049/imm.jpg', tone: '#171616',
+    role: 'Visual effects', by: 'Michele Placido', image: '/images/posters/eterno-visionario.jpg', tone: '#171616',
   },
   {
     id: 'across-the-river', year: '2022', title: 'Across the River and Into the Trees', type: 'Feature film',
-    role: 'Digital compositor', by: 'Paula Ortiz', image: 'https://pad.mymovies.it/filmclub/2020/09/049/imm.jpg', tone: '#14171a',
+    role: 'Digital compositor', by: 'Paula Ortiz', image: '/images/posters/across-the-river.jpg', tone: '#14171a',
   },
   {
     id: 'the-well', year: '2023', title: 'The Well', type: 'Feature film',
-    role: 'Visual effects', by: 'Federico Zampaglione', image: 'https://pad.mymovies.it/filmclub/2023/02/161/imm.jpg', tone: '#181311',
+    role: 'Visual effects', by: 'Federico Zampaglione', image: '/images/posters/the-well.jpg', tone: '#181311',
   },
   {
     id: 'odio-il-natale', year: '2022', title: 'Odio il Natale', type: 'Series',
-    role: 'Visual effects', by: 'Netflix', image: 'https://pad.mymovies.it/filmclub/2022/05/090/imm.jpg', tone: '#171518',
+    role: 'Visual effects', by: 'Netflix', image: '/images/posters/odio-il-natale.jpg', tone: '#171518',
   },
 ]
+
+

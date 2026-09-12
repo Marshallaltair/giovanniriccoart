@@ -125,7 +125,7 @@
 }
 
 .parallax__title {
-  font-size: clamp(5rem, 24vw, 28rem);
+  font-size: clamp(4rem, 19.2vw, 22.4rem);
   line-height: 0.8;
 }
 

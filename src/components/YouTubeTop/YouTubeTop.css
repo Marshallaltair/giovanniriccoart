@@ -31,6 +31,7 @@
 
 .yt-top__media {
   position: relative;
+  width: 80%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--plate);

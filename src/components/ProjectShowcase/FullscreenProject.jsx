@@ -1,17 +1,35 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { gsap } from '../../lib/gsap.js'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation.js'
 import { isTodo, pad2, show } from '../../lib/content.js'
 import { Media } from '../ui/Media.jsx'
 import { UpperDeckGallery } from './UpperDeckGallery.jsx'
+import { ComicsGallery } from './ComicsGallery.jsx'
+import { Filmography } from '../Filmography/Filmography.jsx'
 import './UpperDeckGallery.css'
+import './ComicsGallery.css'
 
 /** FullscreenProject — capitolo full screen con immagine di fondo e titolo in parallasse. */
-export function FullscreenProject({ project, index, total }) {
+export function FullscreenProject({ project, index, total, onOpen }) {
   const ref = useRef(null)
   const [galleryOpen, setGalleryOpen] = useState(false)
+  const [chapterOpen, setChapterOpen] = useState(false)
   const title = isTodo(project.title) ? project.category : show(project.title)
-  const hasGallery = project.id === 'upper-deck'
+  const hasGallery = project.id === 'upper-deck' || project.id === 'artist-proofs'
+  const hasChapter = project.id === 'compositing'
+  const isInteractive = hasGallery || hasChapter || Boolean(onOpen)
+
+  useEffect(() => {
+    if (!chapterOpen) return undefined
+    const onKeyDown = (event) => event.key === 'Escape' && setChapterOpen(false)
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [chapterOpen])
 
   useScrollAnimation(ref, ({ desktop, mobile }) => {
     const q = gsap.utils.selector(ref)
@@ -31,10 +49,10 @@ export function FullscreenProject({ project, index, total }) {
   })
 
   return (
-    <article ref={ref} className={`fsp${hasGallery ? ' fsp--gallery' : ''}`} aria-labelledby={`project-${project.id}`}>
+    <article ref={ref} className={`fsp${isInteractive ? ' fsp--gallery' : ''}`} aria-labelledby={`project-${project.id}`}>
       <div className="fsp__sticky">
         <div className="fsp__stage">
-          <button type="button" className="fsp__frame" onClick={() => hasGallery && setGalleryOpen(true)} aria-label={hasGallery ? 'Open Upper Deck gallery' : undefined} disabled={!hasGallery}>
+          <button type="button" className="fsp__frame" onClick={() => hasGallery ? setGalleryOpen(true) : hasChapter ? setChapterOpen(true) : onOpen?.()} aria-label={hasGallery ? `Open ${title} gallery` : isInteractive ? `Open ${title}` : undefined} disabled={!isInteractive}>
             <div className="fsp__media">
               <Media image={project.image} alt={show(project.alt) ?? ''} focus={project.focus} tone={project.tone} hint={`images/work/${project.id}.webp`} />
             </div>
@@ -46,10 +64,23 @@ export function FullscreenProject({ project, index, total }) {
           <div className="fsp__content">
             <h3 id={`project-${project.id}`} className="fsp__title"><span>{title}</span></h3>
             {hasGallery ? <p className="fsp__action">Open gallery <span aria-hidden="true">↗</span></p> : null}
+            {project.id === 'compositing' ? <p className="fsp__action">View selected credits <span aria-hidden="true">↗</span></p> : null}
+
           </div>
         </div>
       </div>
-      <UpperDeckGallery open={galleryOpen} onClose={() => setGalleryOpen(false)} />
+      {project.id === 'upper-deck' ? <UpperDeckGallery open={galleryOpen} onClose={() => setGalleryOpen(false)} /> : null}
+      {project.id === 'artist-proofs' ? <ComicsGallery open={galleryOpen} onClose={() => setGalleryOpen(false)} /> : null}
+      {chapterOpen ? createPortal(
+        <div className="chapter-panel" data-lenis-prevent="true" role="dialog" aria-modal="true" aria-labelledby={`chapter-${project.id}`}>
+          <div className="chapter-panel__bar">
+            <h2 id={`chapter-${project.id}`}>{title}</h2>
+            <button type="button" className="chapter-panel__close" onClick={() => setChapterOpen(false)}>Close ×</button>
+          </div>
+          <Filmography />
+        </div>,
+        document.body,
+      ) : null}
     </article>
   )
 }

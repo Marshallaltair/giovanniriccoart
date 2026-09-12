@@ -1,22 +1,50 @@
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ParallaxSection } from '../ui/ParallaxSection.jsx'
+import { YouTubeTop } from '../YouTubeTop/YouTubeTop.jsx'
 import './MovingImage.css'
 
-/** ANIMATIONS — full-screen visual chapter using the existing moving-image artwork. */
+/** ANIMATIONS — existing full-screen visual chapter; YouTube opens only on click. */
 export function MovingImage() {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) return undefined
+    const onKeyDown = (event) => event.key === 'Escape' && setOpen(false)
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
   return (
     <section id="animations" aria-labelledby="animations-title">
-      <ParallaxSection
-        id="animations-title"
-        title="Animations"
-        image="/images/moving-image.webp"
-        alt="Animation artwork by Giovanni Ricco"
-        speed={0.3}
-        scale={1.18}
-        overlay={0.32}
-        tone="#15171b"
-        hint="images/moving-image.webp"
-        headingLevel={2}
-      />
+      <button type="button" className="animations-trigger" onClick={() => setOpen(true)} aria-label="Enter animations">
+        <ParallaxSection
+          id="animations-title"
+          title="Animations"
+          image="/images/moving-image.webp"
+          alt="Animation artwork by Giovanni Ricco"
+          speed={0.3}
+          scale={1.18}
+          overlay={0.32}
+          tone="#15171b"
+          hint="images/moving-image.webp"
+          headingLevel={2}
+        />
+      </button>
+      {open ? createPortal(
+        <div className="chapter-panel" data-lenis-prevent="true" role="dialog" aria-modal="true" aria-labelledby="animations-panel-title">
+          <div className="chapter-panel__bar">
+            <h2 id="animations-panel-title">Animations</h2>
+            <button type="button" className="chapter-panel__close" onClick={() => setOpen(false)}>Close ×</button>
+          </div>
+          <YouTubeTop />
+        </div>,
+        document.body,
+      ) : null}
     </section>
   )
 }

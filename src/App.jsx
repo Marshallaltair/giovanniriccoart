@@ -8,14 +8,11 @@ import { FrameCounter } from './components/FrameCounter/FrameCounter.jsx'
 import { Hero } from './components/Hero/Hero.jsx'
 import { Statement } from './components/Statement/Statement.jsx'
 import { ProjectShowcase } from './components/ProjectShowcase/ProjectShowcase.jsx'
-import { Filmography } from './components/Filmography/Filmography.jsx'
 import { ProductionLogos } from './components/ProductionLogos/ProductionLogos.jsx'
 import { MovingImage } from './components/MovingImage/MovingImage.jsx'
-import { YouTubeTop } from './components/YouTubeTop/YouTubeTop.jsx'
 import { About } from './components/About/About.jsx'
 import { Contact } from './components/Contact/Contact.jsx'
 import { SocialLinks } from './components/SocialLinks/SocialLinks.jsx'
-import { Footer } from './components/Footer/Footer.jsx'
 
 export default function App() {
   const [ready, setReady] = useState(false)
@@ -42,15 +39,12 @@ export default function App() {
         <Hero ready={ready} />
         <Statement />
         <ProjectShowcase />
-        <Filmography />
         <ProductionLogos />
         <MovingImage />
-        <YouTubeTop />
         <About />
-        <Contact />
         <SocialLinks />
+        <Contact />
       </main>
-      <Footer />
     </SmoothScroll>
   )
 }
