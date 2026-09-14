@@ -42,13 +42,11 @@
   user-select: none;
 }
 
-.showreel__video video {
+.showreel__video iframe {
   display: block;
   width: 100%;
-  max-height: 78svh;
-  object-fit: contain;
-  user-select: none;
-  -webkit-user-drag: none;
+  aspect-ratio: 16 / 9;
+  border: 0;
 }
 
 @media (max-width: 680px) {
