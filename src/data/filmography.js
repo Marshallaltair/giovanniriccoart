@@ -46,7 +46,7 @@
   },
   {
     id: 'mektoub-my-love-canto-uno', year: '2017', title: 'Mektoub, My Love: Canto Uno', type: 'Feature film',
-    role: 'Compositor', by: 'Abdellatif Kechiche', image: 'https://pad.mymovies.it/filmclub/2017/07/210/imm.jpg', tone: '#17191b',
+    role: 'Compositor', by: 'Abdellatif Kechiche', image: '/images/posters/mektoub.webp', tone: '#17191b',
   },
     {
     id: 'cortina-express', year: '2024', title: 'Cortina Express', type: 'Feature film',

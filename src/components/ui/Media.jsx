@@ -31,6 +31,8 @@ export function Media({ image, alt = '', className = '', sizes = '100vw', priori
     <picture className={`media ${className}`}>
       {img.avif ? <source type="image/avif" srcSet={img.avif} sizes={sizes} /> : null}
       <img
+        draggable="false"
+        onContextMenu={(event) => event.preventDefault()}
         src={img.src}
         srcSet={img.srcSet}
         sizes={img.srcSet ? sizes : undefined}

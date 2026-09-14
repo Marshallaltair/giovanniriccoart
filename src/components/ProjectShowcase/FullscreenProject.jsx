@@ -7,8 +7,10 @@ import { Media } from '../ui/Media.jsx'
 import { UpperDeckGallery } from './UpperDeckGallery.jsx'
 import { ComicsGallery } from './ComicsGallery.jsx'
 import { Filmography } from '../Filmography/Filmography.jsx'
+import { Showreel } from './Showreel.jsx'
 import './UpperDeckGallery.css'
 import './ComicsGallery.css'
+import './Showreel.css'
 
 /** FullscreenProject — capitolo full screen con immagine di fondo e titolo in parallasse. */
 export function FullscreenProject({ project, index, total, onOpen }) {
@@ -49,7 +51,7 @@ export function FullscreenProject({ project, index, total, onOpen }) {
   })
 
   return (
-    <article ref={ref} className={`fsp${isInteractive ? ' fsp--gallery' : ''}`} aria-labelledby={`project-${project.id}`}>
+    <article id={project.id} ref={ref} className={`fsp${isInteractive ? ' fsp--gallery' : ''}`} aria-labelledby={`project-${project.id}`}>
       <div className="fsp__sticky">
         <div className="fsp__stage">
           <button type="button" className="fsp__frame" onClick={() => hasGallery ? setGalleryOpen(true) : hasChapter ? setChapterOpen(true) : onOpen?.()} aria-label={hasGallery ? `Open ${title} gallery` : isInteractive ? `Open ${title}` : undefined} disabled={!isInteractive}>
@@ -77,6 +79,7 @@ export function FullscreenProject({ project, index, total, onOpen }) {
             <h2 id={`chapter-${project.id}`}>{title}</h2>
             <button type="button" className="chapter-panel__close" onClick={() => setChapterOpen(false)}>Close ×</button>
           </div>
+          <Showreel />
           <Filmography />
         </div>,
         document.body,

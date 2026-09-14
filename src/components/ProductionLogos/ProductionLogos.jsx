@@ -6,6 +6,9 @@ const logos = [
   { name: 'Blackstone Studio VFX', src: '/images/logos/blackstone-vfx.png' },
   { name: 'Augustus Color', src: '/images/logos/augustus-color.png' },
   { name: 'Alps Studios', src: '/images/logos/alps-studios.png' },
+  { name: 'Disney+', src: '/images/logos/disneyplus.png' },
+  { name: 'RAI', src: '/images/logos/RAI.png' },
+  { name: 'Rai Cinema', src: '/images/logos/raicinema.png' },
 ]
 
 export function ProductionLogos() {

@@ -9,6 +9,7 @@ import './Navigation.css'
 const LINKS = [
   { href: '#statement', label: 'Statement' },
   { href: '#artist-proofs', label: 'Comic Arts, Illustrations & Commissions' },
+  { href: '#compositing', label: 'Showreel' },
   { href: '#animations', label: 'Animations' },
   { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
