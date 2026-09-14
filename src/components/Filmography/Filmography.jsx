@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from '../../lib/gsap.js'
 import { useFinePointer, useReducedMotion } from '../../hooks/useMediaQuery.js'
-import { RevealText } from '../ui/RevealText.jsx'
 import { Media } from '../ui/Media.jsx'
 import { filmography } from '../../data/filmography.js'
 import { social } from '../../data/social.js'
@@ -31,7 +30,7 @@ export function Filmography() {
     <>
       <section id="films" className="films" aria-labelledby="films-title" style={{ '--tone': activeFilm?.tone ?? 'var(--ink)' }} data-active={active != null}>
         <div className="films__head">
-          <RevealText id="films-title" className="films__title" lines={['Selected', 'credits']} />
+          <h2 id="films-title" className="films__title">Selected credits</h2>
           <a href={social.imdb.url} className="films__imdb link link--static" target="_blank" rel="noopener noreferrer" data-cursor="Open">Full credits on IMDb</a>
         </div>
         <ol className="films__grid" onPointerLeave={() => setActive(null)}>
