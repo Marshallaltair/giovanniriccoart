@@ -65,7 +65,7 @@ export function ComicsGallery({ open, onClose }) {
             }}
             aria-label={zoomed === index ? 'Reduce image' : 'Enlarge image'}
           >
-            <img src={`${base}${encodeURIComponent(name)}`} alt="" draggable="false" />
+            <img src={`${base}${encodeURIComponent(name)}`} alt={name} draggable="false" />
           </button>
         ))}
       </div>

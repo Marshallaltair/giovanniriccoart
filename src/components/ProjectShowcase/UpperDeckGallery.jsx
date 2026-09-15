@@ -56,7 +56,7 @@ export function UpperDeckGallery({ open, onClose }) {
             }}
             aria-label={zoomed === index ? 'Reduce image' : 'Enlarge image'}
           >
-            <img src={`${base}${encodeURIComponent(name).replace(/%2F/g, '/')}`} alt="" draggable="false" />
+            <img src={`${base}${encodeURIComponent(name).replace(/%2F/g, '/')}`} alt={name} draggable="false" />
           </button>
         ))}
       </div>
