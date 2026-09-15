@@ -13,15 +13,21 @@ function seo() {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name,
+    '@type': 'ProfilePage',
+    name: s.title,
     url,
-    image,
-    jobTitle: profile.descriptor,
-    description: s.description,
-    address: { '@type': 'PostalAddress', addressLocality: 'Rome', addressCountry: 'IT' },
-    knowsAbout: ['Illustration', 'Visual effects', 'Compositing', 'Matte painting', 'Nuke'],
-    sameAs: socialList.map((x) => x.url),
+    mainEntity: {
+      '@type': 'Person',
+      '@id': `${url}/#person`,
+      name,
+      url,
+      image,
+      jobTitle: profile.descriptor,
+      description: s.description,
+      address: { '@type': 'PostalAddress', addressLocality: 'Rome', addressCountry: 'IT' },
+      knowsAbout: ['Illustration', 'Visual effects', 'Compositing', 'Matte painting', 'Nuke'],
+      sameAs: socialList.map((x) => x.url),
+    },
   }
 
   const meta = (attrs) => ({ tag: 'meta', attrs, injectTo: 'head' })

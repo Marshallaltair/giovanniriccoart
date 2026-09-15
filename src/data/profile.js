@@ -54,9 +54,9 @@ export const profile = {
   email: null,
 
   seo: {
-    title: 'Giovanni Ricco — Illustrator & Senior VFX Compositor',
+    title: 'Giovanni Ricco — Illustrator & VFX Compositor in Rome',
     description:
-      'Giovanni Ricco is an illustrator and senior VFX compositor based in Rome, working across illustration, digital compositing, film and television.',
+      'Giovanni Ricco is a Rome-based illustrator and senior VFX compositor specializing in comics, trading card art, Nuke compositing, matte painting, film and television visual effects.',
     ogImage: '/og-image.jpg',
     locale: 'en_US',
   },
