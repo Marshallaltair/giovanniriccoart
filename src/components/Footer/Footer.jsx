@@ -36,7 +36,7 @@ export function Footer() {
   })
 
   return (
-    <footer ref={root} id="contact" className="footer" aria-labelledby="footer-title">
+    <footer ref={root} id="contact-footer" className="footer" aria-labelledby="footer-title">
       <div className="footer__inner">
         <h2 id="footer-title" className="footer__title display">
           {LINES.map((line, i) => (
