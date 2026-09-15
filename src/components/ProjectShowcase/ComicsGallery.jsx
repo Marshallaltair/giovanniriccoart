@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react'
 import './ComicsGallery.css'
 
 const images = [
-  'zatanna.jpg',
+  'zatanna.webp',
   'blackcat.webp',
-  'IMG_20260603_124730.jpg',
-  'IMG_20260603_124738.jpg',
-  'batman-1.jpg',
-  'batman-2.jpg',
-  'halloween.jpg',
-  'optimus-1.jpg',
-  'optimus-2.jpg',
-  'PXL_20260603_074231656~2.jpg',
+  'IMG_20260603_124730.webp',
+  'IMG_20260603_124738.webp',
+  'batman-1.webp',
+  'batman-2.webp',
+  'halloween.webp',
+  'optimus-1.webp',
+  'optimus-2.webp',
+  'PXL_20260603_074231656~2.webp',
   'rogue.webp',
   'scarlet.webp',
-  'soundwave.JPG',
+  'soundwave.webp',
   'spiderman.webp',
   'witchblade.webp',
   'wolverine.webp',
@@ -47,7 +47,7 @@ export function ComicsGallery({ open, onClose }) {
     <div className="comics-gallery" role="dialog" aria-modal="true" aria-label="Comic Arts and Illustration gallery">
       <header className="comics-gallery__header">
         <button type="button" className="comics-gallery__back" onClick={onClose}>
-          <span aria-hidden="true">←</span> Back
+          <span aria-hidden="true">â†</span> Back
         </button>
         <p className="comics-gallery__count">{images.length} works</p>
         <button type="button" className="comics-gallery__close" onClick={onClose} aria-label="Close gallery">Close</button>
@@ -70,7 +70,7 @@ export function ComicsGallery({ open, onClose }) {
         ))}
       </div>
 
-      <p className="comics-gallery__hint">Click an image to enlarge · click again to return</p>
+      <p className="comics-gallery__hint">Click an image to enlarge Â· click again to return</p>
     </div>
   )
 }
