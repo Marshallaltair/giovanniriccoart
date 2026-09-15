@@ -6,7 +6,8 @@ import './Statement.css'
 /** STATEMENT — il manifesto sale sopra l'hero e si espone parola per parola. */
 export function Statement() {
   return (
-    <SectionTransition as="section" id="statement" className="statement" aria-label="Statement">
+    <SectionTransition as="section" id="statement" className="statement" aria-labelledby="statement-title">
+      <h2 id="statement-title" className="visually-hidden">Statement</h2>
       <SplitTextReveal className="statement__text" text={profile.statement} />
     </SectionTransition>
   )

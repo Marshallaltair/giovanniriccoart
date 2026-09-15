@@ -245,7 +245,7 @@ body::after {
   position: fixed;
   top: var(--gutter);
   left: var(--gutter);
-  z-index: 200;
+  z-index: 260;
   padding: 0.7rem 1rem;
   background: var(--paper);
   color: var(--ink);

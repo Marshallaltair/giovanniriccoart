@@ -15,6 +15,8 @@ import './Showreel.css'
 /** FullscreenProject — capitolo full screen con immagine di fondo e titolo in parallasse. */
 export function FullscreenProject({ project, index, total, onOpen }) {
   const ref = useRef(null)
+  const frameRef = useRef(null)
+  const chapterCloseRef = useRef(null)
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [chapterOpen, setChapterOpen] = useState(false)
   const title = isTodo(project.title) ? project.category : show(project.title)
@@ -25,11 +27,15 @@ export function FullscreenProject({ project, index, total, onOpen }) {
   useEffect(() => {
     if (!chapterOpen) return undefined
     const onKeyDown = (event) => event.key === 'Escape' && setChapterOpen(false)
+    document.getElementById('main')?.toggleAttribute('inert', true)
     document.body.style.overflow = 'hidden'
     window.addEventListener('keydown', onKeyDown)
+    requestAnimationFrame(() => chapterCloseRef.current?.focus({ preventScroll: true }))
     return () => {
+      document.getElementById('main')?.toggleAttribute('inert', false)
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKeyDown)
+      requestAnimationFrame(() => frameRef.current?.focus({ preventScroll: true }))
     }
   }, [chapterOpen])
 
@@ -54,7 +60,7 @@ export function FullscreenProject({ project, index, total, onOpen }) {
     <article id={project.id} ref={ref} className={`fsp${isInteractive ? ' fsp--gallery' : ''}`} aria-labelledby={`project-${project.id}`}>
       <div className="fsp__sticky">
         <div className="fsp__stage">
-          <button type="button" className="fsp__frame" onClick={() => hasGallery ? setGalleryOpen(true) : hasChapter ? setChapterOpen(true) : onOpen?.()} aria-label={hasGallery ? `Open ${title} gallery` : isInteractive ? `Open ${title}` : undefined} disabled={!isInteractive}>
+          <button ref={frameRef} type="button" className="fsp__frame" onClick={() => hasGallery ? setGalleryOpen(true) : hasChapter ? setChapterOpen(true) : onOpen?.()} aria-label={hasGallery ? `Open ${title} gallery` : isInteractive ? `Open ${title}` : undefined} disabled={!isInteractive}>
             <div className="fsp__media">
               <Media image={project.image} alt={show(project.alt) ?? ''} focus={project.focus} tone={project.tone} hint={`images/work/${project.id}.webp`} />
             </div>
@@ -67,7 +73,6 @@ export function FullscreenProject({ project, index, total, onOpen }) {
             <h3 id={`project-${project.id}`} className="fsp__title"><span>{title}</span></h3>
             {hasGallery ? <p className="fsp__action">Open gallery <span aria-hidden="true">↗</span></p> : null}
             {project.id === 'compositing' ? <p className="fsp__action">View selected credits <span aria-hidden="true">↗</span></p> : null}
-
           </div>
         </div>
       </div>
@@ -77,7 +82,7 @@ export function FullscreenProject({ project, index, total, onOpen }) {
         <div className="chapter-panel" data-lenis-prevent="true" role="dialog" aria-modal="true" aria-labelledby={`chapter-${project.id}`}>
           <div className="chapter-panel__bar">
             <h2 id={`chapter-${project.id}`}>{title}</h2>
-            <button type="button" className="chapter-panel__close" onClick={() => setChapterOpen(false)}>Close ×</button>
+            <button ref={chapterCloseRef} type="button" className="chapter-panel__close" onClick={() => setChapterOpen(false)}>Close ×</button>
           </div>
           <Showreel />
           <Filmography />

@@ -4,3 +4,4 @@ dist
 *.local
 .env*
 public/images/src
+public/videos

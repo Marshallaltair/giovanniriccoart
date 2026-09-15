@@ -25,7 +25,7 @@
     image: '/images/posters/diabolik.jpg', tone: '#101318',
   },
   {
-    id: 'ce-ancora-domani', year: '2023', title: "C'Ã¨ ancora domani", type: 'Feature film',
+    id: 'ce-ancora-domani', year: '2023', title: "C'è ancora domani", type: 'Feature film',
     role: 'Digital compositor', by: 'Paola Cortellesi',
     image: '/images/posters/ancora-domani.jpg', tone: '#161616',
   },
