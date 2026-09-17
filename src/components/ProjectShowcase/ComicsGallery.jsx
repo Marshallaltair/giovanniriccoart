@@ -9,6 +9,7 @@ const fallbackImages = [
 ]
 
 const base = '/images/work/comics/'
+const featuredLocalImages = ['he-man_2017.webp', 'skeletor_2017.webp', 'optimusprime.webp']
 
 function instagramMediaToItems(posts) {
   return posts.flatMap((post) => {
@@ -57,9 +58,15 @@ export function ComicsGallery({ open, onClose }) {
     return () => { cancelled = true }
   }, [open])
 
-  const items = useMemo(() => instagramItems.length ? instagramItems : fallbackImages.map((name) => ({
-    id: name, src: `${base}${encodeURIComponent(name)}`, alt: name, href: null,
-  })), [instagramItems])
+  const items = useMemo(() => {
+    const localFeatured = featuredLocalImages.map((name) => ({
+      id: `local-${name}`, src: `${base}${encodeURIComponent(name)}`, alt: name, href: null,
+    }))
+    if (instagramItems.length) return [...localFeatured, ...instagramItems]
+    return fallbackImages.map((name) => ({
+      id: name, src: `${base}${encodeURIComponent(name)}`, alt: name, href: null,
+    }))
+  }, [instagramItems])
 
   if (!open) return null
 
@@ -94,3 +101,4 @@ export function ComicsGallery({ open, onClose }) {
     </div>
   )
 }
+
