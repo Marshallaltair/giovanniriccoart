@@ -59,13 +59,13 @@ export function ComicsGallery({ open, onClose }) {
   }, [open])
 
   const items = useMemo(() => {
-    const localFeatured = featuredLocalImages.map((name) => ({
+    const remainingLocalImages = fallbackImages.filter((name) => !featuredLocalImages.includes(name))
+    const orderedLocalImages = [remainingLocalImages[0], ...featuredLocalImages, ...remainingLocalImages.slice(1)]
+    const localItems = orderedLocalImages.map((name) => ({
       id: `local-${name}`, src: `${base}${encodeURIComponent(name)}`, alt: name, href: null,
     }))
-    if (instagramItems.length) return [...localFeatured, ...instagramItems]
-    return fallbackImages.map((name) => ({
-      id: name, src: `${base}${encodeURIComponent(name)}`, alt: name, href: null,
-    }))
+    if (instagramItems.length) return [...localItems, ...instagramItems]
+    return localItems
   }, [instagramItems])
 
   if (!open) return null
