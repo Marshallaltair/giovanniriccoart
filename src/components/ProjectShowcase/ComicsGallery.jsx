@@ -3,8 +3,8 @@ import './ComicsGallery.css'
 
 const fallbackImages = [
   'zatanna.webp', 'blackcat.webp', 'IMG_20260603_124730.webp', 'IMG_20260603_124738.webp',
-  'batman-1.webp', 'batman-2.webp', 'halloween.webp', 'optimus-1.webp',
-  'optimus-2.webp', 'PXL_20260603_074231656~2.webp', 'rogue.webp', 'scarlet.webp',
+  'batman-1.webp', 'batman-2.webp', 'halloween.webp', 'he-man_2017.webp', 'optimus-1.webp',
+  'optimus-2.webp', 'optimusprime.webp', 'skeletor_2017.webp', 'PXL_20260603_074231656~2.webp', 'rogue.webp', 'scarlet.webp',
   'soundwave.webp', 'spiderman.webp', 'witchblade.webp', 'wolverine.webp',
 ]
 
