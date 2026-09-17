@@ -5,3 +5,4 @@ dist
 .env*
 public/images/src
 public/videos
+bsky-credentials*.json

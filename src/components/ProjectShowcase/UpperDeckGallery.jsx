@@ -1,20 +1,33 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './UpperDeckGallery.css'
 
-const images = [
-  'card-01.webp', 'card- 010.png', 'card-011.webp', 'card-012.jpg',
-  'card-013.png', 'card-014.webp', 'card-015.jpg', 'card-016.png',
-  'card-017.webp', 'card-018.jpg', 'card-019.png', 'card-02.jpg',
-  'card-020.jpg', 'card-021.png', 'card-022.jpg', 'card-023.png',
-  'card-024.png', 'card-025.png', 'card-026.png', 'card-03.png',
-  'card- 04.png', 'card- 05.webp', 'card- 06.webp', 'card- 07.webp',
-  'card- 08.webp', 'card- 09.webp',
-]
-
 const base = '/images/work/upper-deck/'
+const manifestUrl = `${base}manifest.json`
 
 export function UpperDeckGallery({ open, onClose }) {
+  const [images, setImages] = useState([])
   const [zoomed, setZoomed] = useState(null)
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    let cancelled = false
+    fetch(manifestUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error('Unable to load Upper Deck manifest')
+        return response.json()
+      })
+      .then((items) => {
+        if (!cancelled) setImages(Array.isArray(items) ? items : [])
+      })
+      .catch(() => {
+        if (!cancelled) setImages([])
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return undefined
@@ -38,7 +51,7 @@ export function UpperDeckGallery({ open, onClose }) {
     <div className="ud-gallery" role="dialog" aria-modal="true" aria-label="Upper Deck Trading Card gallery">
       <header className="ud-gallery__header">
         <button type="button" className="ud-gallery__back" onClick={onClose}>
-          <span aria-hidden="true">â†</span> Back
+          <span aria-hidden="true">←</span> Back
         </button>
         <p className="ud-gallery__count">{images.length} works</p>
         <button type="button" className="ud-gallery__close" onClick={onClose} aria-label="Close gallery">Close</button>
@@ -61,7 +74,7 @@ export function UpperDeckGallery({ open, onClose }) {
         ))}
       </div>
 
-      <p className="ud-gallery__hint">Click an image to enlarge Â· click again to return</p>
+      <p className="ud-gallery__hint">Click an image to enlarge · click again to return</p>
     </div>
   )
 }
