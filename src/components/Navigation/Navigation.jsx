@@ -19,6 +19,9 @@ const LINKS = [
 
 /** Navigation — menu completo delle sezioni editoriali del sito. */
 export function Navigation() {
+  const isApplicationPage = window.location.pathname === '/app' || window.location.pathname === '/app/'
+  if (isApplicationPage) return null
+
   const bar = useRef(null)
   const menu = useRef(null)
   const button = useRef(null)

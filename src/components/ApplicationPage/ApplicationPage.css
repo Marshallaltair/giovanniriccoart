@@ -8,7 +8,26 @@
 .application-page__counter { margin-bottom: .8rem; font-size: var(--step--1); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
 .application-page__cta { display: flex; justify-content: space-between; gap: 2rem; margin-top: 0; padding: 1.25rem 0; border-top: 1px solid var(--graphite); border-bottom: 1px solid var(--graphite); font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3.8rem); font-weight: 800; line-height: .95; text-transform: uppercase; transition: color var(--dur) var(--ease-out), padding var(--dur) var(--ease-out); }
 .application-page__cta:hover, .application-page__cta:focus-visible { color: var(--pencil); padding-inline: .5rem; }
-.application-page__back { font-size: var(--step--1); }
+.application-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .8rem 1rem;
+  border: 1px solid var(--pencil);
+  color: var(--pencil);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+}
+.application-page__back:hover,
+.application-page__back:focus-visible {
+  background: var(--pencil);
+  color: var(--ink);
+  transform: translateX(.35rem);
+}
 @media (max-width: 700px) {
   .application-page__main { padding-top: 8rem; }
   .application-page__content { margin-top: 3rem; }
