@@ -1,3 +1,5 @@
+[Reading 55 lines from start (total: 55 lines, 0 remaining)]
+
 import { useEffect, useState } from 'react'
 import { Navigation } from '../Navigation/Navigation.jsx'
 import { MarkerGuide } from './MarkerGuide.jsx'
@@ -6,12 +8,12 @@ import './ApplicationPage.css'
 const DOWNLOAD_URL = '/Marker-Setup.zip'
 
 export function ApplicationPage() {
-  const [downloads, setDownloads] = useState(null)
+  const [stats, setStats] = useState({ visits: null, downloads: null })
 
   useEffect(() => {
-    fetch('/api/stats')
+    fetch('/api/stats?visit=1')
       .then((response) => response.ok ? response.json() : null)
-      .then((data) => setDownloads(data?.downloads ?? null))
+      .then((data) => setStats({ visits: data?.visits ?? null, downloads: data?.downloads ?? null }))
       .catch(() => {})
   }, [])
 
@@ -34,7 +36,7 @@ export function ApplicationPage() {
 
           <div className="application-page__download">
             <div className="application-page__counter">
-              Downloads{downloads !== null ? ' · ' + downloads : ''}
+              Visits{stats.visits !== null ? ' · ' + stats.visits : ''} · Downloads{stats.downloads !== null ? ' · ' + stats.downloads : ''}
             </div>
             <a
               className="application-page__cta"
@@ -53,3 +55,5 @@ export function ApplicationPage() {
     </div>
   )
 }
+
+[executed on device: LAPTOP-BAM6TR8H (5e64067a-bfa8-4884-b402-b44f10e02bc9)]
