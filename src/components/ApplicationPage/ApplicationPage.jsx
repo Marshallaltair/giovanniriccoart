@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Navigation } from '../Navigation/Navigation.jsx'
+import { MarkerGuide } from './MarkerGuide.jsx'
 import './ApplicationPage.css'
 
 const DOWNLOAD_URL = '/Marker-Setup.zip'
-const GUIDE_URL = '/marker/'
 
 export function ApplicationPage() {
   const [downloads, setDownloads] = useState(null)
@@ -25,11 +25,11 @@ export function ApplicationPage() {
         <div className="application-page__content">
           <p className="prose">
             Marker is a Windows 11 utility for assigning colored tags to files and folders.
-            The complete guide below explains the workflow, settings and installation.
+            The complete guide explains the workflow, settings and installation.
           </p>
 
           <div className="application-page__guide">
-            <iframe title="Marker guide" src={GUIDE_URL} loading="lazy" />
+            <MarkerGuide />
           </div>
 
           <div className="application-page__download">
@@ -53,4 +53,3 @@ export function ApplicationPage() {
     </div>
   )
 }
-
