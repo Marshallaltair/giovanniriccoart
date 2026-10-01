@@ -24,9 +24,17 @@ export function Navigation() {
   const button = useRef(null)
   const tl = useRef(null)
   const [open, setOpen] = useState(false)
+  const [visits, setVisits] = useState(null)
   const { lenis, scrollTo } = useLenis()
 
   useMagnetic(button, 0.3)
+
+  useEffect(() => {
+    fetch('/api/stats?visit=1')
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => setVisits(data?.visits ?? null))
+      .catch(() => {})
+  }, [])
 
   useGSAP(() => {
     const el = bar.current
@@ -115,6 +123,7 @@ export function Navigation() {
         </nav>
         <div className="menu__foot">
           {socialList.map((s) => <a key={s.id} href={s.url} className="link" target="_blank" rel="noopener noreferrer" data-cursor="Open">{s.label}</a>)}
+          <span className="menu__visits">Visits{visits !== null ? ' · ' + visits : ''}</span>
         </div>
       </div>
     </>

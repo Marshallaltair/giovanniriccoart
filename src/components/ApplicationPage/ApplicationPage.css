@@ -1,8 +1,17 @@
 .application-page { min-height: 100svh; background: var(--ink); }
 .application-page__main { min-height: 100svh; padding: 11rem var(--gutter) 5rem; }
 .application-page__main .section-title { max-width: 9em; margin-top: 1rem; }
-.application-page__content { margin: 5rem 0 7rem; max-width: 48rem; }
-.application-page__cta { display: flex; justify-content: space-between; gap: 2rem; margin-top: 3rem; padding: 1.25rem 0; border-top: 1px solid var(--graphite); border-bottom: 1px solid var(--graphite); font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3.8rem); font-weight: 800; line-height: .95; text-transform: uppercase; transition: color var(--dur) var(--ease-out), padding var(--dur) var(--ease-out); }
+.application-page__content { margin: 5rem 0 7rem; max-width: 70rem; }
+.application-page__guide { margin-top: 3rem; border: 1px solid var(--graphite); background: #fff; overflow: hidden; }
+.application-page__guide iframe { display: block; width: 100%; height: min(78vh, 900px); min-height: 620px; border: 0; background: #fff; }
+.application-page__download { margin-top: 4rem; }
+.application-page__counter { margin-bottom: .8rem; font-size: var(--step--1); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.application-page__cta { display: flex; justify-content: space-between; gap: 2rem; margin-top: 0; padding: 1.25rem 0; border-top: 1px solid var(--graphite); border-bottom: 1px solid var(--graphite); font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3.8rem); font-weight: 800; line-height: .95; text-transform: uppercase; transition: color var(--dur) var(--ease-out), padding var(--dur) var(--ease-out); }
 .application-page__cta:hover, .application-page__cta:focus-visible { color: var(--pencil); padding-inline: .5rem; }
 .application-page__back { font-size: var(--step--1); }
-@media (max-width: 700px) { .application-page__main { padding-top: 8rem; } .application-page__content { margin-top: 3rem; } .application-page__cta { font-size: 1.8rem; } }
+@media (max-width: 700px) {
+  .application-page__main { padding-top: 8rem; }
+  .application-page__content { margin-top: 3rem; }
+  .application-page__guide iframe { height: 75vh; min-height: 520px; }
+  .application-page__cta { font-size: 1.8rem; }
+}

@@ -50,6 +50,7 @@
 .menu__list:hover a { color: var(--graphite); }
 .menu__list:hover a:hover, .menu__list a:focus-visible { color: var(--paper); transform: translateX(0.2rem); }
 .menu__foot { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: var(--step--1); color: var(--silver); }
+.menu__visits { color: var(--silver); font-variant-numeric: tabular-nums; }
 
 @media (max-height: 700px) {
   .menu { padding-top: calc(var(--gutter) * 3); }
