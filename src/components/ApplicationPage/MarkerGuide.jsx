@@ -11,6 +11,8 @@ function extract(source, tag) {
 const guideBody = extract(guideSource, 'body')
 const guideStyles = extract(guideSource, 'style')
 
+const lightThemeOverrides = ':host, :root { color-scheme: light; --bg: #f5f6f8 !important; --paper: #ffffff !important; --ink: #000000 !important; --muted: #2f3339 !important; --line: #e1e4ea !important; --accent: #0b63ce !important; --accent-soft: #e6f0fc !important; --code-bg: #eef0f4 !important; }\nbody { background: var(--bg) !important; color: #000000 !important; }\n.hero h1, .hero .lead, .hero .meta, section > h2, section > .intro, section p, section li, section td, section th, footer, details.faq p { color: #000000; }\nnav.toc a, nav.toc a::before, figcaption, .tbl th { color: #2f3339; }\ncode { color: #000000; }'
+
 export function MarkerGuide() {
   const hostRef = useRef(null)
 
@@ -18,7 +20,7 @@ export function MarkerGuide() {
     const host = hostRef.current
     if (!host || host.shadowRoot) return
     const shadow = host.attachShadow({ mode: 'open' })
-    shadow.innerHTML = '<style>' + guideStyles + '\n:host { color-scheme: light; --bg: #f5f6f8; --paper: #ffffff; --ink: #000000; --muted: #2f3339; --line: #e1e4ea; }\n</style>' + guideBody
+    shadow.innerHTML = '<style>' + guideStyles + lightThemeOverrides + '</style>' + guideBody
 
     const scrollToHash = () => {
       const hash = decodeURIComponent(window.location.hash.slice(1))
