@@ -13,6 +13,7 @@ import { MovingImage } from './components/MovingImage/MovingImage.jsx'
 import { About } from './components/About/About.jsx'
 import { Contact } from './components/Contact/Contact.jsx'
 import { SocialLinks } from './components/SocialLinks/SocialLinks.jsx'
+import { ApplicationPage } from './components/ApplicationPage/ApplicationPage.jsx'
 
 export default function App() {
   const [ready, setReady] = useState(false)
@@ -25,6 +26,10 @@ export default function App() {
     window.addEventListener('load', refresh)
     return () => window.removeEventListener('load', refresh)
   }, [])
+
+  if (window.location.pathname === '/app' || window.location.pathname === '/app/') {
+    return <ApplicationPage />
+  }
 
   return (
     <SmoothScroll>

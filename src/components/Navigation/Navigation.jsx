@@ -14,6 +14,7 @@ const LINKS = [
   { href: '#animations', label: 'Animations' },
   { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
+  { href: '/app', label: 'My Application' },
 ]
 
 /** Navigation — menu completo delle sezioni editoriali del sito. */
@@ -79,6 +80,10 @@ export function Navigation() {
   }, [open, closeMenu])
 
   const go = async (e, href) => {
+    if (!href.startsWith('#')) {
+      if (open) await closeMenu(false)
+      return
+    }
     e.preventDefault()
     if (open) await closeMenu(false)
     scrollTo(href)
