@@ -19,7 +19,24 @@ export function MarkerGuide() {
     if (!host || host.shadowRoot) return
     const shadow = host.attachShadow({ mode: 'open' })
     shadow.innerHTML = '<style>' + guideStyles + '\n:host { color-scheme: light; --bg: #f5f6f8; --paper: #ffffff; --ink: #000000; --muted: #2f3339; --line: #e1e4ea; }\n</style>' + guideBody
-    return () => { shadow.innerHTML = '' }
+
+    const scrollToHash = () => {
+      const hash = decodeURIComponent(window.location.hash.slice(1))
+      if (!hash) return
+      const target = shadow.getElementById(hash)
+      if (target) {
+        requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+      }
+    }
+
+    const onHashChange = () => scrollToHash()
+    window.addEventListener('hashchange', onHashChange)
+    scrollToHash()
+
+    return () => {
+      window.removeEventListener('hashchange', onHashChange)
+      shadow.innerHTML = ''
+    }
   }, [])
 
   return <div ref={hostRef} className="marker-guide" />
