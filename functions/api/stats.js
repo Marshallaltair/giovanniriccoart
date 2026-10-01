@@ -11,35 +11,19 @@ export async function onRequestGet(context) {
     const db = context.env.DB
 
     if (!db) {
-      if (shouldCountDownload) return downloadResponse(context, url)
       return json({ visits: 0, downloads: 0, persistent: false })
     }
 
     if (shouldCountVisit) await increment(db, KEYS.visits)
+    if (shouldCountDownload) await increment(db, KEYS.downloads)
+
     const downloads = await getCount(db, KEYS.downloads)
     const visits = await getCount(db, KEYS.visits)
-
-    if (shouldCountDownload) {
-      await increment(db, KEYS.downloads)
-      return downloadResponse(context, url)
-    }
 
     return json({ visits, downloads, persistent: true })
   } catch {
     return json({ visits: 0, downloads: 0, persistent: false }, 500)
   }
-}
-
-async function downloadResponse(context, url) {
-  const assetUrl = new URL('/Marker-Setup.zip', url)
-  const response = await context.env.ASSETS.fetch(new Request(assetUrl))
-  if (!response.ok) return response
-
-  const headers = new Headers(response.headers)
-  headers.set('Content-Disposition', 'attachment; filename="Marker-Setup.zip"')
-  headers.set('Content-Type', 'application/zip')
-  headers.set('Cache-Control', 'no-store')
-  return new Response(response.body, { status: response.status, headers })
 }
 
 async function getCount(db, key) {

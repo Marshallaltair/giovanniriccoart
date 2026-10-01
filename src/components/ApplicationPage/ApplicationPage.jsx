@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Navigation } from '../Navigation/Navigation.jsx'
 import './ApplicationPage.css'
 
-const DOWNLOAD_URL = '/api/stats?download=1'
+const DOWNLOAD_URL = '/Marker-Setup.zip'
 const GUIDE_URL = '/Marker-guida.html'
 
 export function ApplicationPage() {
@@ -36,7 +36,13 @@ export function ApplicationPage() {
             <div className="application-page__counter">
               Downloads{downloads !== null ? ' · ' + downloads : ''}
             </div>
-            <a className="application-page__cta" href={DOWNLOAD_URL} data-cursor="Download">
+            <a
+              className="application-page__cta"
+              href={DOWNLOAD_URL}
+              download="Marker-Setup.zip"
+              data-cursor="Download"
+              onClick={() => { fetch('/api/stats?download=1', { keepalive: true }).catch(() => {}) }}
+            >
               <span>Download application</span><span aria-hidden="true">↓</span>
             </a>
           </div>
