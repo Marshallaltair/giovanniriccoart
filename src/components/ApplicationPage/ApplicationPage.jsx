@@ -1,5 +1,3 @@
-[Reading 55 lines from start (total: 55 lines, 0 remaining)]
-
 import { useEffect, useState } from 'react'
 import { Navigation } from '../Navigation/Navigation.jsx'
 import { MarkerGuide } from './MarkerGuide.jsx'
@@ -55,5 +53,3 @@ export function ApplicationPage() {
     </div>
   )
 }
-
-[executed on device: LAPTOP-BAM6TR8H (5e64067a-bfa8-4884-b402-b44f10e02bc9)]
