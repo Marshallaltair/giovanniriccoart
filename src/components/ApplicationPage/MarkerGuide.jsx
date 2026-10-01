@@ -18,7 +18,7 @@ export function MarkerGuide() {
     const host = hostRef.current
     if (!host || host.shadowRoot) return
     const shadow = host.attachShadow({ mode: 'open' })
-    shadow.innerHTML = '<style>' + guideStyles + '</style>' + guideBody
+    shadow.innerHTML = '<style>' + guideStyles + '\n:host { color-scheme: light; --bg: #f5f6f8; --paper: #ffffff; --ink: #000000; --muted: #2f3339; --line: #e1e4ea; }\n</style>' + guideBody
     return () => { shadow.innerHTML = '' }
   }, [])
 
