@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import guideSource from '../../../Marker-guida.html?raw'
+import guideSource from '../../assets/Marker-guida.html?raw'
 
 function extract(source, tag) {
   const open = source.indexOf('<' + tag)
