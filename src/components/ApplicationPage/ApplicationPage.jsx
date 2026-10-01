@@ -3,7 +3,7 @@ import { Navigation } from '../Navigation/Navigation.jsx'
 import './ApplicationPage.css'
 
 const DOWNLOAD_URL = '/Marker-Setup.zip'
-const GUIDE_URL = '/Marker-guida.html'
+const GUIDE_URL = '/marker/'
 
 export function ApplicationPage() {
   const [downloads, setDownloads] = useState(null)
@@ -53,3 +53,4 @@ export function ApplicationPage() {
     </div>
   )
 }
+

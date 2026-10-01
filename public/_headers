@@ -1,10 +1,7 @@
-# Cloudflare Pages — header di sicurezza e cache
-
-# La guida Marker viene mostrata dentro la pagina My Application.
-# Consenti solo l'embedding dallo stesso sito e le fonti Google usate dalla guida.
-/Marker-guida.html
-  X-Frame-Options: SAMEORIGIN
-  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'
+# Marker guide � allow direct access
+/marker/
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'
 
 /*
   X-Content-Type-Options: nosniff
@@ -13,18 +10,12 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://*.cdninstagram.com https://*.fbcdn.net; font-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' https://cloudflareinsights.com https://graph.instagram.com; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests
 
-# Asset con hash nel nome: cache permanente
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
-
-# Immagini caricate a mano: cache lunga ma rinnovabile
 /images/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-
 /og-image.jpg
   Cache-Control: public, max-age=604800
-
-# L'HTML va sempre rivalidato, così un nuovo deploy è subito visibile
 /
   Cache-Control: public, max-age=0, must-revalidate
 /index.html
