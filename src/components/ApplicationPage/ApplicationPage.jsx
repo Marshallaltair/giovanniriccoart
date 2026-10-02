@@ -3,7 +3,7 @@ import { Navigation } from '../Navigation/Navigation.jsx'
 import { MarkerGuide } from './MarkerGuide.jsx'
 import './ApplicationPage.css'
 
-const DOWNLOAD_URL = '/Marker-Setup.zip'
+const DOWNLOAD_URL = 'https://creativericco4.gumroad.com/l/marker'
 
 export function ApplicationPage() {
   const [downloads, setDownloads] = useState(null)
@@ -39,7 +39,8 @@ export function ApplicationPage() {
             <a
               className="application-page__cta"
               href={DOWNLOAD_URL}
-              download="Marker-Setup.zip"
+              target="_blank"
+              rel="noreferrer"
               data-cursor="Download"
               onClick={() => { fetch('/api/stats?download=1', { keepalive: true }).catch(() => {}) }}
             >
