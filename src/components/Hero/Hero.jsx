@@ -18,6 +18,105 @@ function Word({ text, className }) {
   )
 }
 
+/**
+ * Interactive portrait — usa le cinque tavole fornite nella cartella
+ * "interactive home". Il puntatore controlla una dissolvenza morbida
+ * fra centro e quattro direzioni, creando un ritratto vivo senza video.
+ */
+function InteractivePortrait() {
+  const root = useRef(null)
+
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+
+    const reduce = window.matchMedia(mq.reduced)
+    let manualUntil = 0
+    const set = (x = 0, y = 0) => {
+      const dx = Math.max(-1, Math.min(1, x))
+      const dy = Math.max(-1, Math.min(1, y))
+      const horizontal = Math.abs(dx)
+      const vertical = Math.abs(dy)
+      const total = Math.min(1, Math.hypot(dx, dy))
+      const values = {
+        center: Math.max(0.35, 1 - total * 0.55),
+        left: dx < 0 ? horizontal * 0.82 : 0,
+        right: dx > 0 ? horizontal * 0.82 : 0,
+        up: dy < 0 ? vertical * 0.72 : 0,
+        down: dy > 0 ? vertical * 0.72 : 0,
+      }
+
+      Object.entries(values).forEach(([key, value]) => {
+        el.style.setProperty(`--portrait-${key}`, value.toFixed(3))
+      })
+      el.style.setProperty('--portrait-x', `${(dx * 1.6).toFixed(2)}%`)
+      el.style.setProperty('--portrait-y', `${(dy * 1.2).toFixed(2)}%`)
+    }
+
+    const onMove = (event) => {
+      if (reduce.matches) return
+      const rect = el.getBoundingClientRect()
+      manualUntil = Date.now() + 3200
+      set(
+        ((event.clientX - rect.left) / rect.width) * 2 - 1,
+        ((event.clientY - rect.top) / rect.height) * 2 - 1,
+      )
+    }
+    const reset = () => {
+      manualUntil = Date.now() + 1200
+      set(0, 0)
+    }
+
+    // Movimento autonomo molto lento: il ritratto resta vivo anche senza mouse.
+    const idle = [
+      [0, 0],
+      [-0.72, -0.04],
+      [-0.45, 0.06],
+      [0, 0],
+      [0.68, -0.03],
+      [0.42, 0.05],
+      [0, 0],
+    ]
+    let idleIndex = 0
+    const idleTimer = window.setInterval(() => {
+      if (!reduce.matches && Date.now() >= manualUntil) {
+        idleIndex = (idleIndex + 1) % idle.length
+        set(...idle[idleIndex])
+      }
+    }, 2400)
+
+    el.addEventListener('pointermove', onMove, { passive: true })
+    el.addEventListener('pointerleave', reset)
+    return () => {
+      window.clearInterval(idleTimer)
+      el.removeEventListener('pointermove', onMove)
+      el.removeEventListener('pointerleave', reset)
+    }
+  }, [])
+
+  return (
+    <div ref={root} className="interactive-portrait" aria-hidden="true">
+      {[
+        ['center', '/images/interactive-home/center.jpg'],
+        ['left', '/images/interactive-home/left.jpg'],
+        ['right', '/images/interactive-home/right.jpg'],
+        ['up', '/images/interactive-home/up.jpg'],
+        ['down', '/images/interactive-home/down.jpg'],
+      ].map(([key, src]) => (
+        <img
+          key={key}
+          className={`interactive-portrait__image interactive-portrait__image--${key}`}
+          src={src}
+          alt=""
+          draggable="false"
+          loading={key === 'center' ? 'eager' : 'lazy'}
+        />
+      ))}
+      <div className="interactive-portrait__vignette" />
+    </div>
+  )
+}
+
 /** Guide a matita: orizzonte, fughe prospettiche, ellisse di costruzione, marker di tracking. */
 function PencilGuides() {
   const crosses = [
@@ -125,7 +224,7 @@ export function Hero({ ready }) {
         <div className="hero__stage">
           <div className="hero__layer" data-layer="plate">
             <div className="hero__plate-inner">
-              <Media image={profile.hero.image} alt={profile.hero.alt} priority tone="#15171b" hint="images/hero.webp" />
+              <InteractivePortrait />
             </div>
             <span className="hero__label">Plate</span>
           </div>

@@ -54,6 +54,79 @@
   inset: 0;
 }
 
+/* Interactive home: cinque pose del ritratto fuse in base al puntatore. */
+.interactive-portrait {
+  --portrait-center: 1;
+  --portrait-left: 0;
+  --portrait-right: 0;
+  --portrait-up: 0;
+  --portrait-down: 0;
+  --portrait-x: 0%;
+  --portrait-y: 0%;
+  position: absolute;
+  inset: -1.5%;
+  overflow: hidden;
+  background: #09090a;
+  isolation: isolate;
+}
+
+.interactive-portrait__image {
+  position: absolute;
+  inset: -1%;
+  width: 102%;
+  height: 102%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity, transform;
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(var(--portrait-x), var(--portrait-y), 0) scale(1.015);
+}
+
+.interactive-portrait__image--center {
+  opacity: var(--portrait-center);
+  transform: translate3d(0, 0, 0) scale(1.015);
+  z-index: 1;
+}
+
+.interactive-portrait__image--left {
+  opacity: var(--portrait-left);
+  transform: translate3d(-0.7%, 0, 0) scale(1.025);
+  z-index: 2;
+}
+
+.interactive-portrait__image--right {
+  opacity: var(--portrait-right);
+  transform: translate3d(0.7%, 0, 0) scale(1.025);
+  z-index: 2;
+}
+
+.interactive-portrait__image--up {
+  opacity: var(--portrait-up);
+  transform: translate3d(0, -0.7%, 0) scale(1.025);
+  z-index: 2;
+}
+
+.interactive-portrait__image--down {
+  opacity: var(--portrait-down);
+  transform: translate3d(0, 0.7%, 0) scale(1.025);
+  z-index: 2;
+}
+
+.interactive-portrait__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 80% at 58% 46%, transparent 48%, rgba(0, 0, 0, 0.3) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08), transparent 35%, rgba(0, 0, 0, 0.48));
+}
+
 [data-layer='plate']::before {
   content: '';
   position: absolute;
