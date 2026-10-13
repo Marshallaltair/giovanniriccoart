@@ -1,0 +1,45 @@
+from PIL import Image, ImageDraw, ImageFont
+import os
+root=r"C:\Users\giova\Desktop\giovanniriccoart"
+logo_path=os.path.join(root,"public","icon-512.png")
+qr_path=os.path.join(root,"public","card","qrcode-card.png")
+out_path=os.path.join(root,"public","card","biglietto-visita-giovanni-ricco.png")
+W,H=1700,1100
+im=Image.new("RGB",(W,H),(14,16,20))
+d=ImageDraw.Draw(im)
+d.rounded_rectangle((45,45,W-45,H-45),radius=38,outline=(65,68,74),width=3)
+d.line((90,850,W-90,850),fill=(105,108,114),width=2)
+fd=r"C:\Windows\Fonts"
+def F(n,s):
+ p=os.path.join(fd,n)
+ return ImageFont.truetype(p,s) if os.path.exists(p) else ImageFont.load_default()
+bold=F("arialbd.ttf",72)
+title=F("arialbd.ttf",34)
+regular=F("arial.ttf",27)
+small=F("arial.ttf",23)
+tiny=F("arial.ttf",20)
+logo=Image.open(logo_path).convert("RGBA")
+logo.thumbnail((210,210),Image.Resampling.LANCZOS)
+d.rounded_rectangle((87,87,333,333),radius=24,fill=(245,245,242))
+im.paste(logo,(105,105),logo)
+x=390
+d.text((x,105),"Giovanni Ricco",font=bold,fill=(245,245,242))
+d.text((x,205),"SENIOR VFX COMPOSITOR",font=title,fill=(205,207,211))
+d.text((x,260),"Cinema e serie TV  -  Roma",font=regular,fill=(165,168,174))
+d.rounded_rectangle((x,330,x+145,338),radius=4,fill=(220,220,216))
+d.text((x,370),"Oltre 15 anni di esperienza",font=regular,fill=(230,231,233))
+d.text((x,414),"VFX compositing - Nuke - CG integration - Set extension",font=small,fill=(175,178,184))
+qr=Image.open(qr_path).convert("RGB")
+qr=qr.resize((500,500),Image.Resampling.LANCZOS)
+qx,qy=1085,105
+d.rounded_rectangle((qx-25,qy-25,qx+550,qy+550),radius=30,fill=(250,250,247))
+im.paste(qr,(qx,qy))
+d.text((qx+20,630),"SCANSIONA PER LA CARD DIGITALE",font=tiny,fill=(225,226,229))
+d.text((105,900),"+39 347 757 3612",font=small,fill=(238,239,241))
+d.text((105,950),"giovanniriccoart@gmail.com",font=small,fill=(238,239,241))
+d.text((105,1000),"www.giovanniriccoart.com",font=small,fill=(188,191,197))
+d.text((1000,900),"linkedin.com/in/giovanniricco",font=small,fill=(188,191,197))
+d.text((1000,950),"imdb.com/name/nm4150481",font=small,fill=(188,191,197))
+d.text((1000,1000),"instagram.com/giovanniriccoart",font=small,fill=(188,191,197))
+im.save(out_path,format="PNG",dpi=(300,300))
+print(out_path)

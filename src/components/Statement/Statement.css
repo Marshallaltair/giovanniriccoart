@@ -1,0 +1,21 @@
+.statement {
+  min-height: 130svh;
+  display: grid;
+  align-items: center;
+  padding: var(--section-pad) var(--gutter);
+}
+
+.statement__text {
+  max-width: 19em;
+  font-size: clamp(2rem, 1rem + 4.2vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 450;
+  text-wrap: balance;
+}
+
+@media (min-width: 900px) {
+  .statement__text {
+    margin-left: 16.66%;
+  }
+}

@@ -1,0 +1,100 @@
+.about {
+  position: relative;
+  z-index: 3;
+  padding: var(--section-pad) var(--gutter);
+  background: var(--ink);
+}
+
+.about__top {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.about__name {
+  font-size: clamp(4.5rem, 19vw, 22rem);
+  line-height: 0.8;
+}
+
+.about__name > span {
+  display: block;
+}
+
+.about__portrait {
+  width: min(100%, 30rem);
+}
+
+.about__clients {
+  margin-top: 2rem;
+  max-width: 34em;
+  font-size: var(--step-0);
+  color: var(--silver);
+}
+
+.about__facts {
+  display: grid;
+  gap: 3rem;
+  margin-top: clamp(4rem, 10vw, 9rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--graphite);
+}
+
+.about__label {
+  margin-bottom: 1.2rem;
+  font-size: var(--step--1);
+  font-weight: 400;
+  color: var(--silver);
+}
+
+.about__label--spaced {
+  margin-top: 2.5rem;
+}
+
+.about__subjects {
+  margin-bottom: 1rem;
+}
+
+.about__list {
+  display: grid;
+  gap: 1rem;
+}
+
+.about__list li {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.about__place {
+  font-size: var(--step--1);
+  color: var(--silver);
+}
+
+@media (min-width: 900px) {
+  .about__top {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      'name name'
+      'portrait bio';
+    align-items: start;
+  }
+
+  .about__name {
+    grid-area: name;
+  }
+
+  .about__portrait {
+    grid-area: portrait;
+  }
+
+  .about__bio {
+    grid-area: bio;
+    padding-top: 0.4rem;
+  }
+
+  .about__name > span:last-child {
+    text-align: right;
+  }
+
+  .about__facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
