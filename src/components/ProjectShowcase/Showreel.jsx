@@ -14,10 +14,7 @@ export function Showreel() {
   return (
     <section id="showreel" className="showreel" aria-labelledby="showreel-title">
       <div className="showreel__head">
-        <div>
-          <p className="showreel__eyebrow">VFX Compositing</p>
-          <h2 id="showreel-title">Showreel 2026</h2>
-        </div>
+        <h2 id="showreel-title">VFX Showreel 2026</h2>
         <a href={YOUTUBE} target="_blank" rel="noopener noreferrer" className="showreel__link" data-cursor="Open">
           Watch on YouTube ↗
         </a>
@@ -25,7 +22,7 @@ export function Showreel() {
       <div className="showreel__video" onContextMenu={(event) => event.preventDefault()}>
         <iframe
           src={YOUTUBE_EMBED}
-          title="Giovanni Ricco — Showreel 2026"
+          title="Giovanni Ricco, VFX Showreel 2026"
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen

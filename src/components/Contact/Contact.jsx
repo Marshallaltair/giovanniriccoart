@@ -42,18 +42,17 @@ export function Contact() {
   return (
     <section ref={ref} id="contact" className="contact" aria-labelledby="contact-title">
       <div className="contact__intro">
-        <span className="eyebrow">Contact</span>
         <RevealText id="contact-title" className="section-title" lines={['Let’s', 'work together']} />
-        <p className="contact__mail">creativericco@gmail.com</p>
+        <p className="contact__mail"><a className="link link--static" href="mailto:creativericco@gmail.com">creativericco@gmail.com</a></p>
       </div>
       <form className="contact__form" onSubmit={handleSubmit}>
         <label className="contact__field">
           <span>Name</span>
-          <input name="name" value={form.name} onChange={handleChange} required autoComplete="name" />
+          <input name="name" value={form.name} onChange={handleChange} required autoComplete="name" enterKeyHint="next" />
         </label>
         <label className="contact__field">
           <span>Email</span>
-          <input type="email" name="email" value={form.email} onChange={handleChange} required autoComplete="email" />
+          <input type="email" name="email" value={form.email} onChange={handleChange} required autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck="false" enterKeyHint="next" />
         </label>
         <label className="contact__field contact__field--message">
           <span>Message</span>
@@ -62,8 +61,10 @@ export function Contact() {
         <button className="contact__submit" type="submit" disabled={status === 'sending'}>
           {status === 'sending' ? 'Sending…' : 'Send message'}
         </button>
-        {status === 'sent' && <p className="contact__status">Message sent.</p>}
-        {status === 'error' && <p className="contact__status contact__status--error">Something went wrong. Please email me directly.</p>}
+        <p className={`contact__status${status === 'error' ? ' contact__status--error' : ''}`} role="status" aria-live="polite">
+          {status === 'sent' ? 'Message sent. I will reply by email.' : null}
+          {status === 'error' ? 'The message did not go through. Email me at creativericco@gmail.com.' : null}
+        </p>
       </form>
     </section>
   )

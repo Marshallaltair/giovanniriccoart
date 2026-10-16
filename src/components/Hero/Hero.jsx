@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { gsap, motion, mq, useGSAP } from '../../lib/gsap.js'
-import { useLenis } from '../../hooks/useLenis.js'
 import { Media } from '../ui/Media.jsx'
 import { profile } from '../../data/profile.js'
 import './Hero.css'
@@ -54,7 +53,6 @@ function PencilGuides() {
 export function Hero({ ready }) {
   const root = useRef(null)
   const intro = useRef(null)
-  const { scrollTo } = useLenis()
 
   // Intro: prima la matita, poi l'inchiostro, infine il plate
   useGSAP(
@@ -156,17 +154,6 @@ export function Hero({ ready }) {
             <br />
             <span className="hero__location">{profile.location}</span>
           </p>
-          <a
-            href="#statement"
-            className="hero__scroll"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollTo('#statement')
-            }}
-          >
-            Scroll to explore
-            <span className="hero__scroll-line" aria-hidden="true" />
-          </a>
         </div>
       </div>
     </section>

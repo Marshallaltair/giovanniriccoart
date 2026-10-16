@@ -62,7 +62,7 @@ export function ComicsGallery({ open, onClose }) {
     const remainingLocalImages = fallbackImages.filter((name) => !featuredLocalImages.includes(name))
     const orderedLocalImages = [remainingLocalImages[0], ...featuredLocalImages, ...remainingLocalImages.slice(1)]
     const localItems = orderedLocalImages.map((name) => ({
-      id: `local-${name}`, src: `${base}${encodeURIComponent(name)}`, alt: name, href: null,
+      id: `local-${name}`, src: `${base}${encodeURIComponent(name)}`, alt: 'Comic art illustration by Giovanni Ricco', href: null,
     }))
     if (instagramItems.length) return [...localItems, ...instagramItems]
     return localItems
@@ -92,7 +92,7 @@ export function ComicsGallery({ open, onClose }) {
             }}
             aria-label={zoomed === index ? 'Reduce image' : 'Enlarge image'}
           >
-            <img src={item.src} alt={item.alt} draggable="false" />
+            <img src={item.src} alt={item.alt} loading="lazy" decoding="async" draggable="false" />
           </button>
         ))}
       </div>

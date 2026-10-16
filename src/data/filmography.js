@@ -7,7 +7,7 @@
   {
     id: 'pendragon', year: '2026', title: 'The Pendragon Cycle: Rise of the Merlin', type: 'Series',
     role: 'VFX compositor', by: 'Augustus Color',
-    image: '/images/posters/pendragon.png', tone: '#17131a',
+    image: '/images/posters/pendragon.jpg', tone: '#17131a',
   },
   {
     id: 'the-ritual-killer', year: '2023', title: 'The Ritual Killer', type: 'Feature film',

@@ -96,16 +96,6 @@
   opacity: 0;
 }
 
-.fsp__index {
-  position: absolute;
-  pointer-events: none;
-  top: calc(var(--gutter) + 3rem);
-  right: var(--gutter);
-  font-size: var(--step--1);
-  font-variant-numeric: tabular-nums;
-  color: var(--paper);
-}
-
 .fsp__content {
   position: absolute;
   pointer-events: none;
@@ -200,11 +190,13 @@
   display: inline-block;
   margin-left: 0.45rem;
   color: var(--pencil);
-  transition: transform var(--dur-fast) var(--ease-out);
+  transition: transform var(--dur-ui) var(--ease-out);
 }
 
-.fsp--gallery .fsp__frame:hover + .fsp__index + .fsp__content .fsp__action span {
-  transform: translate(0.2rem, -0.2rem);
+@media (hover: hover) and (pointer: fine) {
+  .fsp--gallery .fsp__frame:hover + .fsp__content .fsp__action span {
+    transform: translateX(0.3rem);
+  }
 }
 
 @media (max-width: 899px) {
@@ -234,7 +226,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1rem var(--gutter);
+  padding: max(1rem, env(safe-area-inset-top)) var(--gutter) 1rem;
   background: color-mix(in srgb, var(--ink) 92%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--graphite);
@@ -248,11 +240,15 @@
 }
 
 .chapter-panel__close {
+  min-height: 2.75rem;
+  transition: transform var(--dur-press) var(--ease-press);
   color: var(--paper);
   font-size: var(--step--1);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+
+.chapter-panel__close:active { transform: scale(0.96); }
 
 .chapter-panel > .films,
 .chapter-panel > .yt-top {

@@ -46,7 +46,9 @@
   object-fit: contain;
 }
 
-.production-logos__item:hover { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .production-logos__item:hover { opacity: 1; }
+}
 
 @keyframes production-logos-marquee {
   from { transform: translate3d(-50%, 0, 0); }

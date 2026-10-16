@@ -61,8 +61,10 @@
   transition: transform var(--dur) var(--ease-out);
 }
 
-.yt-top__poster:hover img {
-  transform: scale(1.035);
+@media (hover: hover) and (pointer: fine) {
+  .yt-top__poster:hover img {
+    transform: scale(1.035);
+  }
 }
 
 .yt-top__play {

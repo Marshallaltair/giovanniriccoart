@@ -4,7 +4,7 @@
   grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(2rem, 8vw, 9rem);
   align-items: center;
-  padding: clamp(4rem, 10vw, 9rem) var(--page-pad, 5vw);
+  padding: clamp(4rem, 10vw, 9rem) var(--gutter) max(clamp(4rem, 10vw, 9rem), env(safe-area-inset-bottom));
   background: #111315;
   color: #f2f0eb;
 }
@@ -28,13 +28,16 @@
   justify-self: start; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.35);
   background: transparent; color: inherit; padding: 0.9rem 1.4rem;
   text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem;
-  cursor: pointer; transition: background 220ms ease, color 220ms ease;
+  cursor: pointer; transition: background var(--dur-ui) ease, color var(--dur-ui) ease, transform var(--dur-press) var(--ease-press);
 }
 
-.contact__submit:hover:not(:disabled) { background: #f2f0eb; color: #111315; }
+.contact__submit:active:not(:disabled) { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .contact__submit:hover:not(:disabled) { background: #f2f0eb; color: #111315; }
+}
 .contact__submit:disabled { opacity: 0.5; cursor: wait; }
-.contact__status { margin: 0; font-size: 0.82rem; opacity: 0.7; }
-.contact__status--error { opacity: 1; }
+.contact__status { margin: 0; min-height: 1.2em; font-size: 0.82rem; opacity: 0.7; }
+.contact__status--error { opacity: 1; color: #ffb4a8; }
 
 @media (max-width: 800px) {
   .contact { grid-template-columns: 1fr; min-height: auto; gap: 4rem; padding-top: 6rem; padding-bottom: 6rem; }

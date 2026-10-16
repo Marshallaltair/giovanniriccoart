@@ -69,7 +69,7 @@ export function UpperDeckGallery({ open, onClose }) {
             }}
             aria-label={zoomed === index ? 'Reduce image' : 'Enlarge image'}
           >
-            <img src={`${base}${encodeURIComponent(name).replace(/%2F/g, '/')}`} alt={name} draggable="false" />
+            <img src={`${base}${encodeURIComponent(name).replace(/%2F/g, '/')}`} alt={`Upper Deck trading card artwork by Giovanni Ricco, ${index + 1} of ${images.length}`} loading="lazy" decoding="async" draggable="false" />
           </button>
         ))}
       </div>

@@ -14,7 +14,7 @@ const LINKS = [
   { href: '#animations', label: 'Animations' },
   { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
-  { href: '/app', label: 'My Application' },
+  { href: '/app', label: 'Marker, Windows app' },
 ]
 
 /** Navigation — menu completo delle sezioni editoriali del sito. */
@@ -51,9 +51,10 @@ export function Navigation() {
     const reduced = window.matchMedia(mq.reduced).matches
     tl.current = gsap.timeline({ paused: true })
       .set(menu.current, { visibility: 'visible' })
-      .fromTo(menu.current, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: reduced ? 0.01 : 0.9, ease: motion.ease.wipe })
-      .from(menu.current.querySelectorAll('.menu__item > a > span'), { yPercent: 110, duration: reduced ? 0.01 : motion.cinematic, ease: motion.ease.heavy, stagger: 0.04 }, reduced ? 0 : 0.35)
-      .from(menu.current.querySelectorAll('.menu__foot > *'), { opacity: 0, duration: motion.standard, stagger: 0.05 }, reduced ? 0 : 0.6)
+      // Il menu si usa spesso: tendina breve, voci che arrivano subito dopo.
+      .fromTo(menu.current, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: reduced ? 0.01 : 0.5, ease: 'expo.inOut' })
+      .from(menu.current.querySelectorAll('.menu__item > a > span'), { yPercent: 110, duration: reduced ? 0.01 : 0.6, ease: motion.ease.strong, stagger: 0.035 }, reduced ? 0 : 0.18)
+      .from(menu.current.querySelectorAll('.menu__foot > *'), { opacity: 0, duration: 0.3, stagger: 0.04 }, reduced ? 0 : 0.3)
   }, { scope: menu })
 
   const setInert = (value) => {
@@ -79,7 +80,7 @@ export function Navigation() {
         if (returnFocus) button.current?.focus({ preventScroll: true })
         resolve()
       })
-      t.timeScale(1.6).reverse()
+      t.timeScale(2).reverse()
     })
   }, [lenis])
 
@@ -115,10 +116,10 @@ export function Navigation() {
       <div ref={menu} id="site-menu" className="menu" aria-label="Site menu" role="dialog" aria-modal="true">
         <nav aria-label="Primary">
           <ol className="menu__list">
-            {LINKS.map((link, i) => (
+            {LINKS.map((link) => (
               <li key={link.href} className="menu__item">
                 <a href={link.href} onClick={(e) => go(e, link.href)} data-cursor="Go">
-                  <span><small className="menu__num">{String(i + 1).padStart(2, '0')}</small>{link.label}</span>
+                  <span>{link.label}</span>
                 </a>
               </li>
             ))}
@@ -126,7 +127,7 @@ export function Navigation() {
         </nav>
         <div className="menu__foot">
           {socialList.map((s) => <a key={s.id} href={s.url} className="link" target="_blank" rel="noopener noreferrer" data-cursor="Open">{s.label}</a>)}
-          <span className="menu__visits">Visits{visits !== null ? ' · ' + visits : ''}</span>
+          {visits !== null ? <span className="menu__visits">{visits.toLocaleString('en-US')} visits</span> : null}
         </div>
       </div>
     </>

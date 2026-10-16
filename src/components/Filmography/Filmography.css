@@ -40,7 +40,7 @@
   min-width: 0;
   border-top: 1px solid var(--graphite);
   padding-top: 0.75rem;
-  transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-ui) var(--ease-out);
 }
 
 .films__card-button {
@@ -82,7 +82,7 @@
   font-size: clamp(1.15rem, 1rem + 1vw, 2rem);
   line-height: 0.92;
   text-transform: uppercase;
-  transition: transform var(--dur) var(--ease-out);
+  transition: transform var(--dur-ui) var(--ease-out);
 }
 
 .films__role,
@@ -115,7 +115,7 @@
   aspect-ratio: 2 / 3;
   pointer-events: none;
   clip-path: inset(50% 0% 50% 0%);
-  transition: clip-path var(--dur) var(--ease-out);
+  transition: clip-path 0.28s var(--ease-out);
 }
 
 .films__preview[data-visible='true'] { clip-path: inset(0); }

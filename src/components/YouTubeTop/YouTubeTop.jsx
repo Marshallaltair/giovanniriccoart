@@ -37,8 +37,7 @@ export function YouTubeTop() {
   return (
     <section id="most-viewed" className="yt-top" aria-labelledby="yt-top-title">
       <div className="yt-top__header">
-        <span className="eyebrow">YouTube</span>
-        <h2 id="yt-top-title" className="section-title">Most viewed</h2>
+        <h2 id="yt-top-title" className="section-title">Most viewed on YouTube</h2>
         <a className="yt-top__channel link link--static" href="https://www.youtube.com/@GiovanniRiccodesign" target="_blank" rel="noopener noreferrer" data-cursor="Open">@GiovanniRiccodesign ↗</a>
       </div>
       <div className="yt-top__grid">

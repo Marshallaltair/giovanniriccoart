@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { gsap } from '../../lib/gsap.js'
 import { useScrollAnimation } from '../../hooks/useScrollAnimation.js'
-import { isTodo, pad2, show } from '../../lib/content.js'
+import { isTodo, show } from '../../lib/content.js'
 import { Media } from '../ui/Media.jsx'
 import { UpperDeckGallery } from './UpperDeckGallery.jsx'
 import { ComicsGallery } from './ComicsGallery.jsx'
@@ -67,12 +67,10 @@ export function FullscreenProject({ project, index, total, onOpen }) {
             <div className="fsp__shade" aria-hidden="true" />
           </button>
 
-          <p className="fsp__index" aria-hidden="true">{pad2(index + 1)} / {pad2(total)}</p>
-
           <div className="fsp__content">
             <h3 id={`project-${project.id}`} className="fsp__title"><span>{title}</span></h3>
-            {hasGallery ? <p className="fsp__action">Open gallery <span aria-hidden="true">↗</span></p> : null}
-            {project.id === 'compositing' ? <p className="fsp__action">View selected credits <span aria-hidden="true">↗</span></p> : null}
+            {hasGallery ? <p className="fsp__action">Open gallery <span aria-hidden="true">→</span></p> : null}
+            {project.id === 'compositing' ? <p className="fsp__action">View selected credits <span aria-hidden="true">→</span></p> : null}
           </div>
         </div>
       </div>

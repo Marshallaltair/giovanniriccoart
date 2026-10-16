@@ -46,7 +46,7 @@ export function About() {
             </p>
           ))}
           {profile.clients.length ? (
-            <p className="about__clients">Clients have included {list(profile.clients)}.</p>
+            <p className="about__clients">Clients have included {list(profile.clients).replace(/\.$/, '')}.</p>
           ) : null}
         </div>
       </div>

@@ -1,5 +1,8 @@
 html.has-cursor,
 html.has-cursor * { cursor: none !important; }
+/* nei campi di testo serve il cursore di sistema: dove si scrive va visto il caret */
+html.has-cursor input,
+html.has-cursor textarea { cursor: text !important; }
 
 .cursor {
   position: fixed;

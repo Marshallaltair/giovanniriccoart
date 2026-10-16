@@ -13,11 +13,14 @@
   --silver: #8d8f93;
   --paper: #ede9e1;
   --pencil: #a4dded;
+  /* testo attenuato negli stati di hover di gruppo: resta leggibile (>3:1 sul nero) */
+  --dim: #5f6267;
 
   /* Tipografia */
   --font-display: 'Big Shoulders Display Variable', 'Arial Narrow', 'Helvetica Neue Condensed', sans-serif;
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
+  --step--2: clamp(0.7rem, 0.68rem + 0.08vw, 0.76rem);
   --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
   --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --step-1: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
@@ -33,6 +36,10 @@
   /* Movimento */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-wipe: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-press: cubic-bezier(0.23, 1, 0.32, 1);
+  /* durate UI (hover, press, stati): sempre sotto i 300ms */
+  --dur-press: 0.14s;
+  --dur-ui: 0.22s;
   --dur-fast: 0.3s;
   --dur: 0.6s;
   --dur-cine: 1.2s;
@@ -50,6 +57,22 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-color: var(--graphite) var(--ink);
+  caret-color: var(--pencil);
+}
+
+/* Controlli: tap immediato, niente selezione del testo con la pressione lunga */
+button,
+a,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+button,
+[role='button'] {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 html.lenis,
@@ -199,13 +222,19 @@ body::after {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform var(--dur) var(--ease-out);
+  transition: transform var(--dur-ui) var(--ease-out);
 }
 
-.link:hover::after,
 .link:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
 
 .link--static::after {
@@ -213,8 +242,10 @@ body::after {
   opacity: 0.35;
 }
 
-.link--static:hover::after {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .link--static:hover::after {
+    opacity: 1;
+  }
 }
 
 /* Maschera per reveal di righe */
@@ -301,7 +332,8 @@ body::after {
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition-duration: 0.12s !important;
+    transition-property: opacity, color, background-color, border-color !important;
     scroll-behavior: auto !important;
   }
 }

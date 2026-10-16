@@ -1,16 +1,13 @@
-import { defineConfig } from 'vite'
+﻿import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { fileURLToPath } from 'node:url'
 import { profile } from './src/data/profile.js'
 import { socialList } from './src/data/social.js'
 
-/**
- * Inietta SEO e schema.org nell'index.html a partire dal data layer,
- * così titolo, descrizione e profili social hanno un'unica fonte.
- */
+/** Inject SEO and structured data from the profile data layer. */
 function seo() {
   const { seo: s, url, name } = profile
   const image = new URL(s.ogImage, url).href
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
@@ -29,9 +26,7 @@ function seo() {
       sameAs: socialList.map((x) => x.url),
     },
   }
-
   const meta = (attrs) => ({ tag: 'meta', attrs, injectTo: 'head' })
-
   return {
     name: 'seo-inject',
     transformIndexHtml(html) {
@@ -56,23 +51,17 @@ function seo() {
           meta({ name: 'twitter:title', content: s.title }),
           meta({ name: 'twitter:description', content: s.description }),
           meta({ name: 'twitter:image', content: image }),
-          {
-            tag: 'script',
-            attrs: { type: 'application/ld+json' },
-            children: JSON.stringify(jsonLd),
-            injectTo: 'head',
-          },
+          { tag: 'script', attrs: { type: 'application/ld+json' }, children: JSON.stringify(jsonLd), injectTo: 'head' },
         ],
       }
     },
   }
 }
 
+const src = fileURLToPath(new URL('./src', import.meta.url))
 export default defineConfig({
+  base: './',
   plugins: [react(), seo()],
-  build: {
-    target: 'es2022',
-    cssCodeSplit: false,
-    assetsInlineLimit: 0,
-  },
+  resolve: { alias: { '@data': `${src}/data`, '@lib': `${src}/lib` } },
+  build: { target: 'es2022', assetsInlineLimit: 0 },
 })
