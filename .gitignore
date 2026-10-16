@@ -7,3 +7,11 @@ dist/
 public/images/src
 public/videos
 bsky-credentials*.json
+
+# Local development tooling and generated caches
+.agents/
+.claude/
+.wrangler/
+# Root archives are kept locally; public downloads belong under public/
+/Marker-Setup.zip
+/card-per-il-sito.zip
