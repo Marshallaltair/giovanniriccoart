@@ -19,7 +19,7 @@ async function contact(request, env) {
 
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${String(env.RESEND_API_KEY).trim()}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: 'Website Contact <contact@giovanniriccoart.com>',
       to: ['creativericco@gmail.com'],
@@ -28,7 +28,12 @@ async function contact(request, env) {
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
     }),
   })
-  return r.ok ? json({ ok: true }) : json({ error: 'Email service failed' }, 502)
+  if (r.ok) return json({ ok: true })
+  // Motivo dell'errore di Resend (es. chiave non valida), senza esporre la chiave
+  let reason = ''
+  try { reason = String((await r.json())?.message || '').slice(0, 200) } catch {}
+  console.log('Resend error', r.status, reason)
+  return json({ error: 'Email service failed', status: r.status, reason }, 502)
 }
 
 export default {
