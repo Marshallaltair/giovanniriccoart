@@ -1,7 +1,7 @@
 # Giovanni Ricco — sito "Pro"
 
 Versione autonoma del redesign in stile pagine prodotto Apple, con homepage interattiva:
-la ragazza in apertura gira la testa seguendo il mouse (25 pose, griglia 5×5).
+la ragazza in apertura gira la testa seguendo il mouse (scrub di un video, solo sinistra↔destra).
 
 ## Avvio
 
@@ -15,22 +15,31 @@ npm run build     # sito statico pronto da pubblicare in /dist
 
 - `src/components/` — sezioni della pagina (Hero interattivo, Comics, Upper Deck, VFX, About, Contatti)
 - `src/data/` — testi e dati (filmografia, profilo, progetti, social)
-- `src/assets/hero/` — le 25 pose della homepage: `r{riga}c{colonna}-lg.webp` (desktop) e `-sm.webp` (telefono)
-  - righe 0→4: dall'alto al basso; colonne 0→4: da sinistra a destra; `r2c2` è la posa centrale
+- `src/assets/hero/` — il video della homepage: `face-lg.mp4` (1920px, desktop) e `face-sm.mp4` (1280px, telefono),
+  più i poster della posa frontale `face-center-lg/sm.webp`. Le vecchie 25 pose `r*c*.webp` non sono più usate.
 - `public/images/` — poster, tavole a fumetti e card Upper Deck
 
-## Cambiare le pose della homepage
+## Cambiare il video della homepage
 
-Basta sostituire i file in `src/assets/hero/` mantenendo gli stessi nomi. Se le pose diventano
-di più (es. 11×11 generate con face-looker), si cambia `N` e `MID` in `src/components/Hero.jsx`.
+Il sorgente è `interactive home/face.mp4` (frame 0 = guarda a sinistra, ultimo = guarda a destra).
+Va ricodificato **all-intra** (ogni frame keyframe), altrimenti lo scrub col mouse scatta:
+
+```bash
+ffmpeg -i "interactive home/face.mp4" -an -vf scale=1920:-2 -c:v libx264 -preset slow -crf 22 -g 1 -movflags +faststart src/assets/hero/face-lg.mp4
+ffmpeg -i "interactive home/face.mp4" -an -vf scale=1280:-2 -c:v libx264 -preset slow -crf 23 -g 1 -movflags +faststart src/assets/hero/face-sm.mp4
+```
+
+In `src/components/Hero.jsx`: `FRAMES` (numero di frame), `CENTER` (frame frontale da cui parte la home, ora 75),
+`HEAD` (posizione della testa nel video), `FOLLOW` (morbidezza dell'inseguimento).
 
 ## Da sapere
 
 - Il modulo contatti e il link alla pagina di Marker funzionano solo pubblicati sul dominio del sito.
 
-## Pubblicazione su Cloudflare Pages
+## Pubblicazione su Cloudflare (Worker "giovanniriccoart")
 
-- Imposta la root del progetto sulla radice di questa repository/branch.
-- Build command: npm run build; output directory: dist.
-- Le email richiedono una Cloudflare Pages Function in functions/api/contact.js e la variabile segreta RESEND_API_KEY nelle impostazioni del progetto Pages (Production e Preview, se usate).
-- Non inserire mai la chiave Resend nel codice o nel repository. Il form va verificato con un invio reale dopo aver configurato la variabile sul progetto di destinazione.
+- Il sito gira su un Cloudflare Worker con static assets: `wrangler.jsonc` serve `dist/` e passa `/api/*` a `worker/index.js`.
+- Build command: `npm run build`; deploy: `npx wrangler deploy`.
+- Il modulo contatti (`/api/contact`) è in `worker/index.js`: la cartella `functions/` è delle Cloudflare Pages e su un Worker non viene eseguita.
+- Le email richiedono la variabile segreta RESEND_API_KEY sul Worker: `npx wrangler secret put RESEND_API_KEY` (oppure Dashboard → Workers → giovanniriccoart → Settings → Variables and Secrets).
+- Non inserire mai la chiave Resend nel codice o nel repository. Dopo il deploy, verificare il form con un invio reale.
