@@ -398,12 +398,3 @@ dialog.film::backdrop { background: rgba(4,5,7,.82); backdrop-filter: blur(8px);
 .film__nav { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .6rem; }
 .film__close { position: absolute; top: 12px; right: 12px; }
 @media (max-width: 640px) { .film__in { grid-template-columns: 1fr; } .film__in img { max-width: 260px; margin-inline: auto; } .film__txt { padding-right: 0; } }
-
-/* Phone: the contact heading and email sit below the portrait, not over her face */
-@media (max-width: 760px) {
-  .face { height: auto; min-height: 0; background: var(--void); }
-  .face__v { position: relative; display: block; height: 78svh; }
-  .face::after { top: 0; bottom: auto; height: 78svh; background: linear-gradient(transparent 72%, var(--void)); }
-  .face__panel { position: static; max-width: none; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 0; padding: 8px var(--side-r) 0 var(--side-l); }
-  .face__hint { top: 20%; bottom: auto; }
-}
