@@ -1,7 +1,7 @@
-# Giovanni Ricco — sito "Pro"
+# Giovanni Ricco — sito portfolio
 
-Versione autonoma del redesign in stile pagine prodotto Apple, con homepage interattiva:
-la ragazza in apertura gira la testa seguendo il mouse (scrub di un video, solo sinistra↔destra).
+Sito a pagina singola, interattivo: volo 3D in WebGL tra le tavole, galleria comics orizzontale,
+anello 3D delle card Upper Deck, muro di locandine, node graph Nuke dei crediti, ritratto che segue il mouse.
 
 ## Avvio
 
@@ -13,24 +13,21 @@ npm run build     # sito statico pronto da pubblicare in /dist
 
 ## Struttura
 
-- `src/components/` — sezioni della pagina (Hero interattivo, Comics, Upper Deck, VFX, About, Contatti)
-- `src/data/` — testi e dati (filmografia, profilo, progetti, social)
-- `src/assets/hero/` — il video della homepage: `face-lg.mp4` (1920px, desktop) e `face-sm.mp4` (1280px, telefono),
-  più i poster della posa frontale `face-center-lg/sm.webp`. Le vecchie 25 pose `r*c*.webp` non sono più usate.
-- `public/images/` — poster, tavole a fumetti e card Upper Deck
+- `index.html` — tutto il markup della pagina
+- `src/site.css` — stili (font: SF Pro sui Mac, Inter Variable altrove, da @fontsource)
+- `src/site.js` — interazioni: GSAP + ScrollTrigger, Lenis (smooth scroll), three.js (volo iniziale)
+- `public/img/` — immagini ottimizzate usate dalla pagina:
+  `comic-NN.webp` / `comic-NN-s.webp` (tavole e miniature), `card-NNN.webp` (178 card Upper Deck),
+  `ba-N-a/b.webp` (coppie ink/colour per il confronto nella galleria comics), `poster-*.webp` (locandine),
+  `logo-*.png` (loghi bianchi usati come maschera), `portrait.webp`, `hl-vfx.webp`
+- `public/media/` — video del ritratto interattivo (`face-lg.mp4`, `face-sm.mp4`) e poster frontali
+- I vecchi componenti React in `src/components/` non sono più usati dalla pagina; `src/data/` serve ancora a `vite.config.js` per i meta SEO.
 
-## Cambiare il video della homepage
+## Contenuti da aggiornare
 
-Il sorgente è `interactive home/face.mp4` (frame 0 = guarda a sinistra, ultimo = guarda a destra).
-Va ricodificato **all-intra** (ogni frame keyframe), altrimenti lo scrub col mouse scatta:
-
-```bash
-ffmpeg -i "interactive home/face.mp4" -an -vf scale=1920:-2 -c:v libx264 -preset slow -crf 22 -g 1 -movflags +faststart src/assets/hero/face-lg.mp4
-ffmpeg -i "interactive home/face.mp4" -an -vf scale=1280:-2 -c:v libx264 -preset slow -crf 23 -g 1 -movflags +faststart src/assets/hero/face-sm.mp4
-```
-
-In `src/components/Hero.jsx`: `FRAMES` (numero di frame), `CENTER` (frame frontale da cui parte la home, ora 75),
-`HEAD` (posizione della testa nel video), `FOLLOW` (morbidezza dell'inseguimento).
+- Filmografia: array `credits` (15 film principali, con regista) ed `extraFilms` (altri crediti IMDb) in `src/site.js`
+- Posizione delle locandine principali sul muro: oggetto `SLOTS` in `src/site.js`
+- Video del ritratto: `FRAMES`, `CENTER` e `HEAD` nella sezione `FACE` di `src/site.js` (stesso video all-intra di prima)
 
 ## Da sapere
 
