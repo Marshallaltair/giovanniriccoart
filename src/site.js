@@ -107,7 +107,7 @@ document.documentElement.classList.add(matchMedia('(prefers-reduced-motion: redu
     $$('.cmp').forEach((c) => {
       c._x = 50; let down = false;
       const at = (e) => { const r = c.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
-      c.addEventListener('pointerdown', (e) => { down = true; if (c._tw) c._tw.kill(); c.setPointerCapture(e.pointerId); setCmp(c, at(e)); });
+      c.addEventListener('pointerdown', (e) => { down = true; if (c._tw) c._tw.kill(); if (e.pointerType !== 'touch') { c.setPointerCapture(e.pointerId); setCmp(c, at(e)); } });
       c.addEventListener('pointermove', (e) => { if (down) setCmp(c, at(e)); else if (e.pointerType === 'mouse') setCmp(c, at(e)); });
       c.addEventListener('pointerup', () => { down = false; });
       c.addEventListener('pointercancel', () => { down = false; });
@@ -125,6 +125,9 @@ document.documentElement.classList.add(matchMedia('(prefers-reduced-motion: redu
   });
   $('#sheetClose').onclick = () => sheet.close();
   $('#lbPrev').onclick = () => showLb(gi - 1);
+  let lbX = null, lbY = 0;
+  lb.addEventListener('touchstart', (e) => { lbX = e.touches[0].clientX; lbY = e.touches[0].clientY; }, { passive: true });
+  lb.addEventListener('touchend', (e) => { if (lbX === null) return; const t = e.changedTouches[0], dx = t.clientX - lbX, dy = t.clientY - lbY; lbX = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) showLb(gi + (dx < 0 ? 1 : -1)); }, { passive: true });
   $('#lbNext').onclick = () => showLb(gi + 1);
   $('#lbDone').onclick = () => { lb.hidden = true; const b = thumbs.querySelector(`[data-k="${gi}"]`); if (b) { b.scrollIntoView({ block: 'center' }); b.focus(); } };
   sheet.addEventListener('keydown', (e) => { if (lb.hidden) return; if (e.key === 'ArrowRight') { showLb(gi + 1); e.preventDefault(); } if (e.key === 'ArrowLeft') { showLb(gi - 1); e.preventDefault(); } if (e.key === 'Escape') { e.preventDefault(); $('#lbDone').click(); } });
@@ -297,9 +300,11 @@ document.documentElement.classList.add(matchMedia('(prefers-reduced-motion: redu
   };
   applyRing();
   const st3 = $('#stage3d'); let dX = null, moved = 0;
-  st3.addEventListener('pointerdown', (e) => { dX = e.clientX; moved = 0; dragV = 0; });
-  addEventListener('pointermove', (e) => { if (dX === null) return; const dx = e.clientX - dX; dX = e.clientX; moved += Math.abs(dx); dragV = dx * .25; dragRot += dragV; applyRing(); });
-  addEventListener('pointerup', () => { if (dX === null) return; dX = null; const d = moved > 6 ? '1' : '0'; rcs.forEach((c) => c.dataset.dragged = d); setTimeout(() => rcs.forEach((c) => c.dataset.dragged = '0'), 60); });
+  let dY = 0, dK = .25, lock = null;
+  st3.addEventListener('pointerdown', (e) => { dX = e.clientX; dY = e.clientY; moved = 0; dragV = 0; lock = e.pointerType === 'touch' ? null : 'x'; dK = e.pointerType === 'touch' ? .35 : .25; });
+  addEventListener('pointermove', (e) => { if (dX === null) return; if (!lock) { const ax = Math.abs(e.clientX - dX), ay = Math.abs(e.clientY - dY); if (ax < 6 && ay < 6) return; lock = ax > ay ? 'x' : 'y'; if (lock === 'y') { dX = null; return; } } const dx = e.clientX - dX; dX = e.clientX; moved += Math.abs(dx); dragV = dx * dK; dragRot += dragV; applyRing(); });
+  const endDrag = () => { if (dX === null) return; dX = null; const d = moved > 6 ? '1' : '0'; rcs.forEach((c) => c.dataset.dragged = d); setTimeout(() => rcs.forEach((c) => c.dataset.dragged = '0'), 60); };
+  addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag);
   const inertia = () => { if (dX === null && Math.abs(dragV) > .02) { dragV *= .94; dragRot += dragV; applyRing(); } requestAnimationFrame(inertia); };
   inertia();
   if (MOTION) {

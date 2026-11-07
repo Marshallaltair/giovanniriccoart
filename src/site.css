@@ -330,7 +330,7 @@ dialog.sheet::backdrop { background: rgba(4,5,7,.8); backdrop-filter: blur(6px);
 .cmp .tag, .cmp .knob { z-index: 2; }
 .cmp .tag { position: absolute; bottom: 10px; padding: .25rem .55rem; border-radius: 999px; background: rgba(8,9,11,.72); color: #f1efe9; font-size: .78rem; font-weight: 600; pointer-events: none; }
 .cmp .tag--a { left: 10px; } .cmp .tag--b { right: 10px; }
-.cmp .knob { position: absolute; top: 0; bottom: 0; left: var(--x); width: 44px; margin-left: -22px; padding: 0; border: 0; background: none; display: grid; place-items: center; cursor: ew-resize; touch-action: none; }
+.cmp .knob { position: absolute; top: 0; bottom: 0; left: var(--x); width: 44px; margin-left: -22px; padding: 0; border: 0; background: none; display: grid; place-items: center; cursor: ew-resize; touch-action: pan-y; }
 .cmp .knob::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25); }
 .cmp .knob span { position: relative; width: 34px; height: 34px; border-radius: 50%; background: #fff; color: #101317; display: grid; place-items: center; box-shadow: 0 6px 16px rgba(0,0,0,.4); transition: transform .25s var(--ease); }
 .cmp:hover .knob span, .cmp .knob:focus-visible span { transform: scale(1.12); }
